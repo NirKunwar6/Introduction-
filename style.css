@@ -1,0 +1,163 @@
+:root {
+    --gold: #D4AF37;
+    --bg-black: #050505;
+    --pure-white: #ffffff;
+    --text-gray: #cccccc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-black);
+    color: var(--pure-white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* 1. SIDEBAR NAVIGATION - Vertical line at top right, follows scroll */
+.side-menu {
+    position: fixed;
+    top: 50px;
+    right: 40px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.side-logo {
+    color: var(--gold);
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.menu-items { display: flex; flex-direction: column; gap: 8px; }
+
+.menu-items a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 20px;
+    border-right: 4px solid var(--gold);
+    backdrop-filter: blur(10px);
+    transition: 0.4s ease;
+}
+
+.menu-items a:hover {
+    background: var(--gold);
+    color: black;
+    transform: translateX(-10px);
+}
+
+/* 2. WORLD CLASS CENTERING (Spacing 3,4 style) */
+.content-limit {
+    width: 60%; /* This creates the 3,4 style spacing (20% left, 20% right margin) */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.full-section {
+    padding: 120px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 3. HEADERS - Centered, different color, new line */
+.section-title {
+    font-family: 'Syncopate', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold); /* Distinct color from paragraph */
+    margin-bottom: 50px;
+    display: block; /* Ensures it starts on another line */
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.gold-title { color: #fff; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 10px; }
+
+/* 4. PARAGRAPHS & POINTS */
+.paragraph-box p {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin-bottom: 25px;
+    text-align: center; /* Perfectly centered text */
+}
+
+.points-box ul {
+    list-style: none;
+    display: inline-block;
+    text-align: left; /* List content stays left-aligned for readability but box is centered */
+}
+
+.points-box li {
+    font-size: 1.2rem;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.points-box li::before {
+    content: "◈ ";
+    color: var(--gold);
+    margin-right: 15px;
+}
+
+/* 5. HERO PHOTO */
+.photo-box img {
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    border: 5px solid var(--gold);
+    padding: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+}
+
+.main-name { font-family: 'Syncopate', sans-serif; font-size: 4rem; line-height: 1; }
+.main-name span { color: var(--gold); }
+
+/* 6. VISION QUOTE */
+.philosophy-quote {
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.4;
+}
+
+/* 7. GALLERY GRID */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.img-frame img { width: 100%; height: 350px; object-fit: cover; border-radius: 5px; border: 1px solid #222; }
+
+/* 8. CONTACT FORM */
+.contact-form { width: 100%; max-width: 600px; margin: auto; }
+form input, form textarea {
+    width: 100%; padding: 18px; margin-bottom: 15px;
+    background: #111; border: 1px solid #333; color: white; border-radius: 5px;
+}
+.oscar-btn {
+    width: 100%; padding: 20px; background: var(--gold); color: black;
+    border: none; font-weight: 900; cursor: pointer; transition: 0.5s;
+}
+.oscar-btn:hover { background: white; transform: scale(1.02); }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 900px) {
+    .content-limit { width: 90%; }
+    .side-menu { top: 10px; right: 10px; scale: 0.8; }
+    .main-name { font-size: 2.5rem; }
+    .gallery-grid { grid-template-columns: 1fr; }
+}
