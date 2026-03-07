@@ -23,7 +23,7 @@ body {
 .side-menu {
     position: fixed !important; /* Changed to fixed to stay while scrolling */
     top: 30px; 
-    right: 300px; /* Increased margin from edge */
+    right: 10px; /* Increased margin from edge */
     z-index: 1000; 
     display: flex;
     flex-direction: column;
