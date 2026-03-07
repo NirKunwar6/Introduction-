@@ -1,29 +1,37 @@
-    /* Brand: Mrtechnician
-   Design: Oscar-Winning Premium Gold Edition
-   Features: HDR Headers, Pulsing Gold Glow, Ultra-Locked Menu
+/* Brand: Mrtechnician 
+   Owner: Nirdeshan Kunwar
+   Updates: Slimmer Navigation & Typing Animation
 */
 
 :root {
-    /* 5-Stop Cinematic Gold Gradient */
-    --hdr-gold: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
-    --pure-gold: #D4AF37;
-    --soft-glow: rgba(212, 175, 55, 0.4);
-    --deep-black: #050505;
+    --gold: #D4AF37;
+    --bg-black: #050505;
+    --pure-white: #ffffff;
+    --text-gray: #cccccc;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
 
 body {
-    background-color: var(--deep-black);
-    color: #ffffff;
+    background-color: var(--bg-black);
+    color: var(--pure-white);
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-    /* --- 1. SLIM SIDE MENU (CORRECTED OVERLAP) --- */
+
+/* --- 1. SLIM SIDE MENU (CORRECTED OVERLAP) --- */
 .side-menu {
     position: fixed !important; /* Changed to fixed to stay while scrolling */
     top: 30px; 
-    right: 10px; /* Increased margin from edge */
+    right: 15px; /* Increased margin from edge */
     z-index: 1000; 
     display: flex;
     flex-direction: column;
@@ -67,96 +75,61 @@ body {
     width: 100px; /* Subtle expansion on hover */
 }
 
-/* --- 2. THE OSCAR-WINNING HEADERS --- */
-.section-title, .gold-title {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 60px; /* Precise 2-line gap */
-    
-    /* HDR Gold Effect */
-    background: var(--hdr-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    position: relative;
-    
-    /* Glow effect */
-    filter: drop-shadow(0 0 15px var(--soft-glow));
-}
-
-/* Pulsing Aura behind headers */
-.section-title::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 130%;
-    height: 100%;
-    background: radial-gradient(circle, var(--soft-glow) 0%, transparent 75%);
-    z-index: -1;
-    animation: auraPulse 4s infinite ease-in-out;
-}
-
-@keyframes auraPulse {
-    0%, 100% { opacity: 0.4; scale: 1; }
-    50% { opacity: 0.7; scale: 1.1; }
-}
-
-/* --- 3. PREMIUM TYPING ANIMATION (NAME) --- */
-.main-name {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 3rem;
-    line-height: 1.1;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 4px solid var(--pure-gold);
-    width: 0;
-    animation: typing 3.5s steps(25, end) forwards, blink 0.8s infinite;
-}
-
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@keyframes blink {
-    50% { border-color: transparent; }
-}
-
-/* --- 4. LAYOUT SPACING & TYPOGRAPHY --- */
-.full-section {
-    padding: 80px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.paragraph-box p {
-    color: #cccccc;
-    font-size: 1rem;
-    line-height: 1.8;
-    max-width: 800px;
-    margin-bottom: 20px;
+/* --- 2. LAYOUT & TYPOGRAPHY --- */
+.content-limit {
+    width: 85%; 
+    margin: 0 auto;
     text-align: center;
 }
 
-/* --- 5. CUSTOM GOLD CURSOR --- */
-.cursor-dot {
-    width: 8px; height: 8px; background: var(--pure-gold);
-    position: fixed; border-radius: 50%; z-index: 99999; pointer-events: none;
-}
-.cursor-outline {
-    width: 40px; height: 40px; border: 2px solid var(--pure-gold);
-    position: fixed; border-radius: 50%; z-index: 99998; pointer-events: none;
-    transition: transform 0.15s ease-out;
+.full-section {
+    padding: 50px 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* --- 6. GALLERY & FORM --- */
+/* --- 3. HERO NAME WITH TYPING EFFECT --- */
+.main-name { 
+    font-family: 'Syncopate', sans-serif; 
+    font-size: 2.8rem; 
+    display: inline-block;
+    overflow: hidden; /* Ensures content is hidden until typed */
+    white-space: nowrap; /* Keeps name on one line during animation */
+    margin: 0 auto;
+    border-right: 3px solid var(--gold); /* The typing cursor */
+    animation: 
+        typing 3.5s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+.main-name span { color: var(--gold); }
+
+/* Typing Animation Keyframes */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Cursor Blink Keyframes */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--gold); }
+}
+
+/* --- 4. HERO PHOTO --- */
+.photo-box img {
+    width: 250px;  
+    height: 250px; 
+    border-radius: 50%;
+    border: 3.5px solid var(--gold); 
+    padding: 6px;
+    margin-bottom: 25px;
+    object-fit: cover;
+}
+
+/* --- 5. GALLERY & FORM --- */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
@@ -214,7 +187,7 @@ form input, form textarea {
     text-transform: uppercase;
 }
 
-/* --- 7. MOBILE OPTIMIZATION --- */
+/* --- 6. MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
     .content-limit { width: 90%; }
     .side-menu { top: 20px; right: 10px; }
