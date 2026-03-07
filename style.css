@@ -1,5 +1,5 @@
-    /* BRAND: Mrtechnician
-   DEVELOPER: Nirdeshan Kunwar (Nir)
+/* Brand: Mrtechnician
+   Owner: Nirdeshan Kunwar
 */
 
 :root {
@@ -7,7 +7,6 @@
     --bg-black: #050505;
     --pure-white: #ffffff;
     --text-gray: #cccccc;
-    --nav-bg: rgba(20, 20, 20, 0.85);
 }
 
 * { 
@@ -27,28 +26,27 @@ body {
     overflow-x: hidden;
 }
 
-/* --- 1. WORLD-CLASS SIDEBAR NAVIGATION --- */
-/* This container stays fixed on the screen while you scroll */
+/* --- 1. THE FIXED SIDEBAR (THE FIX) --- */
+/* This ensures the menu NEVER moves when you scroll */
 .side-menu {
-    position: fixed; 
+    position: fixed !important; 
     top: 50%; 
     right: 20px; 
-    transform: translateY(-50%); /* Centers perfectly vertically */
+    transform: translateY(-50%); /* Keeps it exactly centered vertically */
     z-index: 10000; 
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 8px;
+    gap: 5px;
 }
 
 .side-logo {
     color: var(--gold);
     font-family: 'Syncopate', sans-serif;
     font-weight: 900;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    font-size: 1rem; /* Smaller logo */
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
 .menu-items { 
@@ -60,35 +58,34 @@ body {
 .menu-items a {
     color: white !important; 
     text-decoration: none;
-    font-size: 0.65rem; 
+    font-size: 0.6rem; /* Small handwriting/text size */
     font-weight: 700;
     text-transform: uppercase;
-    background: var(--nav-bg);
-    padding: 10px 16px;
-    border-right: 4px solid var(--gold);
+    background: rgba(15, 15, 15, 0.9);
+    padding: 8px 14px; /* Smaller button size */
+    border-right: 3px solid var(--gold);
     backdrop-filter: blur(10px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.3s ease-in-out;
     white-space: nowrap;
-    width: 120px; /* Ensures consistent vertical alignment */
+    width: 110px; /* Uniform width for vertical line */
     text-align: right;
 }
 
 .menu-items a:hover {
     background: var(--gold);
     color: black !important;
-    transform: translateX(-8px);
-    border-right-color: white;
+    transform: translateX(-5px);
 }
 
-/* --- 2. LAYOUT & TYPOGRAPHY --- */
+/* --- 2. LAYOUT & SPACING --- */
 .content-limit {
-    width: 70%; 
+    width: 75%; 
     margin: 0 auto;
     text-align: center;
 }
 
 .full-section {
-    padding: 100px 0;
+    padding: 80px 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -96,59 +93,48 @@ body {
     justify-content: center;
 }
 
-.section-title {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 1.6rem;
-    color: var(--gold);
-    margin-bottom: 40px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+/* --- 3. THE PHILOSOPHY LINE (REDUCED SIZE) --- */
+.philosophy-quote {
+    font-size: 1.4rem !important; /* Smaller text size for the philosophy lines */
+    font-weight: 500;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.4;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
-/* --- 3. HERO SECTION & PHOTO --- */
+/* --- 4. HERO SECTION & PHOTO --- */
 .photo-box img {
-    width: 200px; 
-    height: 200px;
+    width: 180px; 
+    height: 180px;
     border-radius: 50%;
-    border: 4px solid var(--gold);
-    padding: 6px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+    border: 3px solid var(--gold);
+    padding: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
     object-fit: cover;
 }
 
 .main-name { 
     font-family: 'Syncopate', sans-serif; 
-    font-size: 3rem; 
+    font-size: 2.8rem; 
     line-height: 1.1; 
-    margin-bottom: 10px;
 }
 .main-name span { color: var(--gold); }
 
-/* --- 4. PHILOSOPHY QUOTE (SMALLER SIZE) --- */
-.philosophy-quote {
-    font-size: 1.4rem; /* Reduced handwriting/quote size */
-    font-weight: 500;
-    font-style: italic;
-    color: #fff;
-    line-height: 1.5;
-    max-width: 80%;
-    margin: 0 auto;
-    letter-spacing: 1px;
-}
-
 /* --- 5. MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
-    .content-limit { width: 85%; }
+    .content-limit { width: 90%; }
     
     .side-menu { 
-        right: 15px; 
-        scale: 0.9;
+        right: 10px; 
+        scale: 0.85; /* Makes buttons even smaller on phones */
     }
 
     .main-name { font-size: 2rem; }
     
     .philosophy-quote {
-        font-size: 1.1rem; /* Even smaller for mobile */
+        font-size: 1.1rem !important; 
     }
 }
