@@ -26,30 +26,35 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-/* ULTRA-LOCKED VERTICAL SIDE MENU
+
+/* ULTRA-STATIONARY VERTICAL MENU 
    Brand: Mrtechnician
-   Standard: World-Class / Stationary Fix
+   Logic: Total Viewport Anchor
 */
 
 .side-menu {
-    /* KEY FIX: 'fixed' keeps it pinned to the window, not the page */
-    position: fixed !important; 
-    top: 50%; /* Centers it vertically on the screen */
-    right: 25px; 
-    transform: translateY(-50%); /* Fine-tunes the vertical center */
-    z-index: 10000; /* Ensures it stays above all content and photos */
+    /* LOCKING MECHANISM */
+    position: fixed !important;  /* Locks to the screen window, not the page */
+    top: 40px !important;        /* Exact distance from the top of the screen */
+    right: 25px !important;      /* Exact distance from the right of the screen */
+    
+    /* PREVENT MOVEMENT */
+    z-index: 10000 !important;   /* Stays above everything (photo, text, etc.) */
+    pointer-events: auto;        /* Ensures buttons remain clickable */
     
     /* FORCED VERTICAL ALIGNMENT */
     display: flex !important;
-    flex-direction: column !important; 
+    flex-direction: column !important;
     align-items: flex-end;
     gap: 8px;
+    
+    /* PREVENT TRANSFORM DRIFT */
+    transform: none !important;  
 }
 
 .menu-items {
-    /* Reinforces the vertical stack for the buttons */
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: column !important; /* Keep buttons stacked vertically */
     gap: 5px;
 }
 
@@ -60,41 +65,37 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     
-    /* Glassmorphism Background */
-    background: rgba(15, 15, 15, 0.95);
+    /* Visuals */
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
-    
     padding: 10px 15px;
-    border-right: 3px solid #D4AF37; /* Brand Gold Edge */
+    border-right: 3px solid #D4AF37;
     
-    /* FIXED WIDTH: Prevents it from expanding horizontally */
-    width: 100px; 
+    /* Size Control */
+    width: 100px;
     text-align: right;
+    white-space: nowrap;
     
-    /* Smooth transition for the hover effect */
+    /* Animation */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    white-space: nowrap; /* Prevents text from wrapping to a new line */
 }
 
-/* PREMIUM HOVER EFFECT */
+/* HOVER UPGRADE */
 .menu-items a:hover {
     background: #D4AF37;
     color: #000000 !important;
-    width: 115px; /* Elegant expansion on hover */
-    border-right: 3px solid #ffffff;
+    width: 115px;
 }
 
-/* MOBILE FIX: Ensure it doesn't overlap content on small screens */
+/* MOBILE LOCK */
 @media (max-width: 768px) {
     .side-menu {
-        top: 20px;
-        right: 15px;
-        transform: none; /* Align to top on mobile for better space */
+        top: 20px !important;
+        right: 15px !important;
     }
     .menu-items a {
         width: 85px;
         font-size: 0.5rem;
-        padding: 8px 10px;
     }
 }
 
