@@ -9,6 +9,9 @@
 </head>
 <body>
 
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
     <nav class="side-menu">
         <div class="side-logo">NIR</div>
         <div class="menu-items">
@@ -24,17 +27,18 @@
     <header id="hero" class="full-section">
         <div class="content-limit">
             <div class="photo-box">
-                <img src="IMG_20260107_122423_899.webp
-                    " alt="Nirdeshan Kunwar">
+                <img src="IMG_20260107_122423_899.webp" alt="Nirdeshan Kunwar">
             </div>
-            <h1 class="main-name">NIRDESHAN<br><span>KUNWAR</span></h1>
+            <div class="typing-container">
+                <h1 class="main-name typing-active">NIRDESHAN<br><span>KUNWAR</span></h1>
+            </div>
             <p class="hero-labels">Digital Creator • Cricketer • CS Student</p>
         </div>
     </header>
 
     <section id="journey" class="full-section">
         <div class="content-limit">
-            <h2 class="section-title">JOURNEY (BIO)</h2>
+            <h2 class="section-title typing-header">JOURNEY (BIO)</h2>
             <div class="paragraph-box">
                 <p>Nirdeshan Kunwar is a student of Computer Science at GoldenGate College and a dedicated cricketer currently training at Kathmandu Cricket Academy in Kathmandu, Nepal. He is known for his disciplined lifestyle, strong work ethic, and commitment to continuous improvement both in sports and academics.</p>
                 <p>As a young cricketer, Nirdeshan focuses on developing his batting skills, match awareness, and overall fitness while working every day to move closer to his goal of playing cricket at a professional level. His passion for the sport is reflected in his consistent training, competitive mindset, and determination to perform under pressure.</p>
@@ -45,7 +49,7 @@
 
     <section id="achievements" class="full-section">
         <div class="content-limit">
-            <h2 class="section-title">ELITE MILESTONES</h2>
+            <h2 class="section-title typing-header">ELITE MILESTONES</h2>
             <div class="points-box">
                 <ul>
                     <li>Represented District at U16, U19 & 10th National Tournament.</li>
@@ -62,7 +66,7 @@
 
     <section id="vision" class="full-section dark-alt">
         <div class="content-limit">
-            <h2 class="section-title gold-title">MY PHILOSOPHY</h2>
+            <h2 class="section-title gold-title typing-header">MY PHILOSOPHY</h2>
             <p class="philosophy-quote">"Dream without limits, Work without excuses, Fail with courage, Rise with purpose, Leave a legacy that inspires."</p>
         </div>
     </section>
@@ -71,11 +75,14 @@
         <div class="content-limit">
             <h2 class="section-title">VISUAL GALLERY</h2>
             <div class="gallery-grid">
-                <div class="img-frame"><img src="IMG_20250715_154508.jpg"></div><div class="img-frame"><img src="1766114093638.jpg"></div>
-                <div class="img-frame"><img src="IMG_20251211_170350.jpg
-                                           "></div><div class="img-frame"><img src="1769431596060.jpg"></div>
-                <div class="img-frame"><img src="IMG_20260107_122423_899.webp"></div><div class="img-frame"><img src="IMG_20251211_170350.jpg"></div>
-                <div class="img-frame"><img src="1766114093638.jpg"></div><div class="img-frame"><img src="1769431596060.jpg"></div>
+                <div class="img-frame"><img src="IMG_20250715_154508.jpg"></div>
+                <div class="img-frame"><img src="1766114093638.jpg"></div>
+                <div class="img-frame"><img src="IMG_20251211_170350.jpg"></div>
+                <div class="img-frame"><img src="1769431596060.jpg"></div>
+                <div class="img-frame"><img src="IMG_20260107_122423_899.webp"></div>
+                <div class="img-frame"><img src="IMG_20251211_170350.jpg"></div>
+                <div class="img-frame"><img src="1766114093638.jpg"></div>
+                <div class="img-frame"><img src="1769431596060.jpg"></div>
             </div>
         </div>
     </section>
@@ -93,6 +100,20 @@
         </div>
     </section>
 
+    <script>
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorOutline = document.querySelector(".cursor-outline");
+        window.addEventListener("mousemove", (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+    </script>
+
 </body>
-                                                                                                         </html>
-                                                                                                         
+</html>
