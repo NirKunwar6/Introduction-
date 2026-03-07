@@ -26,54 +26,84 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-
-/* --- 1. SLIM SIDE MENU (CORRECTED OVERLAP) --- */
+/* --- 1. THE LOCKED SIDE MENU --- */
 .side-menu {
-    position: fixed !important; /* Changed to fixed to stay while scrolling */
-    top: 30px; 
-    right: 15px; /* Increased margin from edge */
-    z-index: 1000; 
+    position: fixed !important; /* Forces menu to stay on screen coordinates */
+    top: 40px; 
+    right: 25px; 
+    z-index: 10000; /* Highest priority to stay on top */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 5px;
-}
-
-.side-logo {
-    color: var(--gold);
-    font-family: 'Syncopate', sans-serif;
-    font-weight: 900;
-    font-size: 0.85rem; /* Slightly smaller logo */
-    margin-bottom: 8px;
-}
-
-.menu-items { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 3px; 
+    gap: 6px;
 }
 
 .menu-items a {
-    color: white !important; 
+    color: #ffffff !important;
     text-decoration: none;
-    font-size: 0.5rem; /* Smaller font for buttons */
+    font-size: 0.55rem;
     font-weight: 700;
     text-transform: uppercase;
-    background: rgba(15, 15, 15, 0.95);
-    padding: 6px 10px; /* Slimmer padding */
-    border-right: 3px solid var(--gold);
-    backdrop-filter: blur(10px);
-    transition: 0.3s ease-in-out;
-    white-space: nowrap;
-    width: 90px; /* Reduced width to prevent touching hero photo */
+    background: rgba(15, 15, 15, 0.95); /* Semi-transparent dark background */
+    padding: 8px 12px;
+    border-right: 3px solid #D4AF37; /* The brand gold edge */
+    width: 90px; 
     text-align: right;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px); /* Premium glass effect */
 }
 
 .menu-items a:hover {
-    background: var(--gold);
-    color: black !important;
-    width: 100px; /* Subtle expansion on hover */
+    background: #D4AF37;
+    color: #000000 !important;
+    width: 105px; /* Subtle expansion on hover */
 }
+
+/* --- 2. THE CINEMATIC GOLD HEADERS --- */
+.section-title {
+    font-family: 'Syncopate', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 60px; /* Precise 2-line gap before content starts */
+    
+    /* 5-Stop Metallic Gradient */
+    background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    position: relative;
+    
+    /* Glow effect */
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+}
+
+/* Pulsing Aura behind the header */
+.glow-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.glow-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 75%);
+    z-index: -1;
+    filter: blur(20px);
+    animation: headerPulse 4s infinite ease-in-out;
+}
+
+@keyframes headerPulse {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
 
 /* --- 2. LAYOUT & TYPOGRAPHY --- */
 .content-limit {
