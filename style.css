@@ -1,72 +1,135 @@
-    :root {
-    --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+     /* Brand: Mrtechnician 
+   Owner: Nirdeshan Kunwar
+   Updates: Slimmer Navigation & Typing Animation
+*/
+
+:root {
     --gold: #D4AF37;
-    --glow: rgba(212, 175, 55, 0.35);
+    --bg-black: #050505;
+    --pure-white: #ffffff;
+    --text-gray: #cccccc;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-body { background: #050505; color: white; font-family: 'Poppins', sans-serif; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
-/* --- LOCKED SIDE MENU --- */
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--pure-white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- 1. SLIM SIDE MENU (CORRECTED OVERLAP) --- */
 .side-menu {
-    position: fixed !important; /* Locks menu in place */
-    top: 40px; right: 25px; z-index: 9999;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 5px;
+    position: fixed !important; /* Changed to fixed to stay while scrolling */
+    top: 30px; 
+    right: 15px; /* Increased margin from edge */
+    z-index: 1000; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.side-logo {
+    color: var(--gold);
+    font-family: 'Syncopate', sans-serif;
+    font-weight: 900;
+    font-size: 0.85rem; /* Slightly smaller logo */
+    margin-bottom: 8px;
+}
+
+.menu-items { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 3px; 
 }
 
 .menu-items a {
-    color: white !important; font-size: 0.55rem; font-weight: 700;
-    text-transform: uppercase; background: rgba(15, 15, 15, 0.95);
-    padding: 8px 12px; border-right: 3px solid var(--gold);
-    width: 90px; text-align: right; text-decoration: none; transition: 0.4s;
+    color: white !important; 
+    text-decoration: none;
+    font-size: 0.5rem; /* Smaller font for buttons */
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(15, 15, 15, 0.95);
+    padding: 6px 10px; /* Slimmer padding */
+    border-right: 3px solid var(--gold);
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease-in-out;
+    white-space: nowrap;
+    width: 90px; /* Reduced width to prevent touching hero photo */
+    text-align: right;
 }
 
-.menu-items a:hover { width: 105px; background: var(--gold); color: black !important; }
+.menu-items a:hover {
+    background: var(--gold);
+    color: black !important;
+    width: 100px; /* Subtle expansion on hover */
+}
 
-/* --- STYLISH GLOWING HEADERS --- */
-.section-title {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 2rem; letter-spacing: 5px;
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 60px; /* Exact 2-line gap */
+/* --- 2. LAYOUT & TYPOGRAPHY --- */
+.content-limit {
+    width: 85%; 
+    margin: 0 auto;
+    text-align: center;
+}
+
+.full-section {
+    padding: 50px 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- 3. HERO NAME WITH TYPING EFFECT --- */
+.main-name { 
+    font-family: 'Syncopate', sans-serif; 
+    font-size: 2.8rem; 
     display: inline-block;
-    position: relative;
-    filter: drop-shadow(0 2px 10px var(--glow));
+    overflow: hidden; /* Ensures content is hidden until typed */
+    white-space: nowrap; /* Keeps name on one line during animation */
+    margin: 0 auto;
+    border-right: 3px solid var(--gold); /* The typing cursor */
+    animation: 
+        typing 3.5s steps(30, end),
+        blink-caret .75s step-end infinite;
 }
 
-.glow-wrapper { position: relative; display: inline-block; }
-.glow-wrapper::after {
-    content: ""; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%); width: 140%; height: 100%;
-    background: radial-gradient(circle, var(--glow) 0%, transparent 75%);
-    z-index: -1; animation: pulse 4s infinite ease-in-out;
+.main-name span { color: var(--gold); }
+
+/* Typing Animation Keyframes */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; scale: 1; }
-    50% { opacity: 0.8; scale: 1.1; }
+/* Cursor Blink Keyframes */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--gold); }
 }
 
-/* --- HERO STYLE --- */
-.main-name { font-family: 'Syncopate', sans-serif; font-size: 3rem; margin-bottom: 10px; }
-.hero-labels { color: var(--gold); font-size: 1rem; font-weight: 600; }
-
+/* --- 4. HERO PHOTO --- */
 .photo-box img {
-    width: 250px; height: 250px; border-radius: 50%;
-    border: 4px solid var(--gold); padding: 7px;
-    margin-bottom: 30px; object-fit: cover;
+    width: 250px;  
+    height: 250px; 
+    border-radius: 50%;
+    border: 3.5px solid var(--gold); 
+    padding: 6px;
+    margin-bottom: 25px;
+    object-fit: cover;
 }
 
-.full-section { padding: 80px 0; display: flex; flex-direction: column; align-items: center; }
-
-@media (max-width: 768px) {
-    .side-menu { top: 20px; right: 10px; }
-    .section-title { font-size: 1.4rem; }
-    .main-name { font-size: 1.8rem; }
-}
-/* --- GALLERY & FORM --- */
+/* --- 5. GALLERY & FORM --- */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
@@ -124,7 +187,7 @@ form input, form textarea {
     text-transform: uppercase;
 }
 
-/* --- MOBILE OPTIMIZATION --- */
+/* --- 6. MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
     .content-limit { width: 90%; }
     .side-menu { top: 20px; right: 10px; }
@@ -140,4 +203,4 @@ form input, form textarea {
         font-size: 0.45rem;
         padding: 5px 8px;
     }
-   }
+}   
