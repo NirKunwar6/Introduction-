@@ -26,16 +26,31 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-/* --- 1. THE LOCKED SIDE MENU --- */
+/* ULTRA-LOCKED VERTICAL SIDE MENU
+   Brand: Mrtechnician
+   Standard: World-Class / Stationary Fix
+*/
+
 .side-menu {
-    position: fixed !important; /* Forces menu to stay on screen coordinates */
-    top: 40px; 
+    /* KEY FIX: 'fixed' keeps it pinned to the window, not the page */
+    position: fixed !important; 
+    top: 50%; /* Centers it vertically on the screen */
     right: 25px; 
-    z-index: 10000; /* Highest priority to stay on top */
-    display: flex;
-    flex-direction: column;
+    transform: translateY(-50%); /* Fine-tunes the vertical center */
+    z-index: 10000; /* Ensures it stays above all content and photos */
+    
+    /* FORCED VERTICAL ALIGNMENT */
+    display: flex !important;
+    flex-direction: column !important; 
     align-items: flex-end;
-    gap: 6px;
+    gap: 8px;
+}
+
+.menu-items {
+    /* Reinforces the vertical stack for the buttons */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px;
 }
 
 .menu-items a {
@@ -44,19 +59,43 @@ body {
     font-size: 0.55rem;
     font-weight: 700;
     text-transform: uppercase;
-    background: rgba(15, 15, 15, 0.95); /* Semi-transparent dark background */
-    padding: 8px 12px;
-    border-right: 3px solid #D4AF37; /* The brand gold edge */
-    width: 90px; 
+    
+    /* Glassmorphism Background */
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(10px);
+    
+    padding: 10px 15px;
+    border-right: 3px solid #D4AF37; /* Brand Gold Edge */
+    
+    /* FIXED WIDTH: Prevents it from expanding horizontally */
+    width: 100px; 
     text-align: right;
+    
+    /* Smooth transition for the hover effect */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(10px); /* Premium glass effect */
+    white-space: nowrap; /* Prevents text from wrapping to a new line */
 }
 
+/* PREMIUM HOVER EFFECT */
 .menu-items a:hover {
     background: #D4AF37;
     color: #000000 !important;
-    width: 105px; /* Subtle expansion on hover */
+    width: 115px; /* Elegant expansion on hover */
+    border-right: 3px solid #ffffff;
+}
+
+/* MOBILE FIX: Ensure it doesn't overlap content on small screens */
+@media (max-width: 768px) {
+    .side-menu {
+        top: 20px;
+        right: 15px;
+        transform: none; /* Align to top on mobile for better space */
+    }
+    .menu-items a {
+        width: 85px;
+        font-size: 0.5rem;
+        padding: 8px 10px;
+    }
 }
 
 /* --- 2. THE CINEMATIC GOLD HEADERS --- */
