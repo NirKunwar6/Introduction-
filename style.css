@@ -19,47 +19,52 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
-
-/* --- 1. THE ULTRA-LOCKED SIDE MENU --- */
+    /* --- 1. SLIM SIDE MENU (CORRECTED OVERLAP) --- */
 .side-menu {
-    position: fixed !important; /* Forces menu to stay on screen coordinates */
-    top: 40px; 
-    right: 20px; 
-    z-index: 10000; /* Highest priority */
+    position: fixed !important; /* Changed to fixed to stay while scrolling */
+    top: 30px; 
+    right: 15px; /* Increased margin from edge */
+    z-index: 1000; 
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: 5px;
 }
 
 .side-logo {
-    color: var(--pure-gold);
+    color: var(--gold);
     font-family: 'Syncopate', sans-serif;
     font-weight: 900;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
+    font-size: 0.85rem; /* Slightly smaller logo */
+    margin-bottom: 8px;
+}
+
+.menu-items { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 3px; 
 }
 
 .menu-items a {
-    color: #fff !important;
+    color: white !important; 
     text-decoration: none;
-    font-size: 0.55rem;
+    font-size: 0.5rem; /* Smaller font for buttons */
     font-weight: 700;
     text-transform: uppercase;
-    background: rgba(15, 15, 15, 0.9);
-    padding: 8px 12px;
-    border-right: 3px solid var(--pure-gold);
-    width: 90px; /* Slim fit to stay away from the circle photo */
+    background: rgba(15, 15, 15, 0.95);
+    padding: 6px 10px; /* Slimmer padding */
+    border-right: 3px solid var(--gold);
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease-in-out;
+    white-space: nowrap;
+    width: 90px; /* Reduced width to prevent touching hero photo */
     text-align: right;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(5px);
 }
 
 .menu-items a:hover {
-    background: var(--pure-gold);
-    color: #000 !important;
-    width: 105px;
+    background: var(--gold);
+    color: black !important;
+    width: 100px; /* Subtle expansion on hover */
 }
 
 /* --- 2. THE OSCAR-WINNING HEADERS --- */
@@ -151,12 +156,78 @@ body {
     transition: transform 0.15s ease-out;
 }
 
-/* --- 6. MOBILE FIXES --- */
+/* --- 6. GALLERY & FORM --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.img-frame {
+    width: 100%;
+    height: 300px; 
+    overflow: hidden;
+    border: 1px solid #222;
+    border-radius: 4px;
+}
+
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.5s ease;
+}
+
+.img-frame:hover img {
+    transform: scale(1.05);
+}
+
+.contact-form { 
+    width: 100%; 
+    max-width: 500px; 
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input, form textarea {
+    width: 100%; 
+    padding: 15px; 
+    background: #111; 
+    border: 1px solid #333; 
+    color: white; 
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.oscar-btn {
+    width: 100%; 
+    padding: 18px; 
+    background: var(--gold); 
+    color: black;
+    border: none; 
+    font-weight: 900; 
+    cursor: pointer; 
+    text-transform: uppercase;
+}
+
+/* --- 7. MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
+    .content-limit { width: 90%; }
     .side-menu { top: 20px; right: 10px; }
-    .menu-items a { width: 80px; font-size: 0.5rem; }
-    .section-title { font-size: 1.4rem; letter-spacing: 2px; }
-    .main-name { font-size: 2rem; }
-    .cursor-dot, .cursor-outline { display: none; }
-    * { cursor: auto; }
-   }
+    .main-name { font-size: 1.8rem; white-space: normal; border-right: none; animation: none; } /* Disable typing on small mobile for better fit */
+    
+    .photo-box img {
+        width: 200px; 
+        height: 200px;
+    }
+
+    .menu-items a {
+        width: 75px;
+        font-size: 0.45rem;
+        padding: 5px 8px;
+    }
+}
