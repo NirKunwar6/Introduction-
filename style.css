@@ -111,8 +111,8 @@ body {
 
 /* --- 4. HERO PHOTO --- */
 .photo-box img {
-    width: 200px; 
-    height: 200px;
+    width: 90px; 
+    height: 90px;
     border-radius: 50%;
     border: 3px solid var(--gold);
     padding: 5px;
