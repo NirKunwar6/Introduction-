@@ -1,24 +1,42 @@
 /* Brand: Mrtechnician 
-   Features: Locked Menu & Gold Header Glow
+   Owner: Nirdeshan Kunwar
+   Updates: Slimmer Navigation & Typing Animation
 */
 
 :root {
-    --gold-gradient: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     --gold: #D4AF37;
-    --glow-gold: rgba(212, 175, 55, 0.3);
     --bg-black: #050505;
+    --pure-white: #ffffff;
+    --text-gray: #cccccc;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--pure-white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
 /* --- 1. THE LOCKED SIDE MENU --- */
 .side-menu {
     position: fixed !important; /* Forces it to stay in the same spot on screen */
     top: 30px; 
-    right: 20px; 
-    z-index: 9999; /* Keeps it above everything else */
+    right: 15px; 
+    z-index: 1000; /* Keeps it above everything else */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 4px;
+    gap: 3px;
 }
 
 .menu-items a {
@@ -27,10 +45,10 @@
     font-size: 0.5rem; 
     font-weight: 700;
     text-transform: uppercase;
-    background: rgba(10, 10, 10, 0.98); /* Solid dark background */
-    padding: 7px 11px; 
+    background: rgba(15, 15, 15, 0.95); /* Solid dark background */
+    padding: 6px 10px; 
     border-right: 3px solid var(--gold);
-    width: 85px; /* Slim size to avoid touching photo */
+    width: 90px; /* Slim size to avoid touching photo */
     text-align: right;
     transition: 0.3s;
 }
@@ -61,7 +79,22 @@
     50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
 }
 
-/* --- 3. STYLISH GRADIENT HEADERS --- */
+/* --- 3. LAYOUT & TYPOGRAPHY --- */
+.content-limit {
+    width: 85%; 
+    margin: 0 auto;
+    text-align: center;
+}
+
+.full-section {
+    padding: 50px 0; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- 4. STYLISH GRADIENT HEADERS --- */
 .section-title, .gold-title {
     font-family: 'Syncopate', sans-serif;
     font-size: 1.8rem;
@@ -74,7 +107,46 @@
     position: relative;
 }
 
-/* --- 4. HERO NAME TYPING --- */
+/* --- 5. HERO NAME WITH TYPING EFFECT --- */
+.main-name { 
+    font-family: 'Syncopate', sans-serif; 
+    font-size: 2.8rem; 
+    display: inline-block;
+    overflow: hidden; /* Ensures content is hidden until typed */
+    white-space: nowrap; /* Keeps name on one line during animation */
+    margin: 0 auto;
+    border-right: 3px solid var(--gold); /* The typing cursor */
+    animation: 
+        typing 3.5s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+.main-name span { color: var(--gold); }
+
+/* Typing Animation Keyframes */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Cursor Blink Keyframes */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--gold); }
+}
+
+/* --- 6. HERO PHOTO --- */
+.photo-box img {
+    width: 250px;  
+    height: 250px; 
+    border-radius: 50%;
+    border: 3.5px solid var(--gold); 
+    padding: 6px;
+    margin-bottom: 25px;
+    object-fit: cover;
+}
+
+/* --- 7. HERO NAME TYPING --- */
 .main-name { 
     font-family: 'Syncopate', sans-serif; 
     font-size: 2.8rem;
@@ -91,7 +163,7 @@
     to { width: 100% }
 }
 
-/* --- 5. CONTENT GAPS --- */
+/* --- 8. CONTENT GAPS --- */
 .paragraph-box, .points-box, .gallery-grid {
     margin-top: 30px; /* Ensures the gap after the header */
 }
@@ -102,3 +174,78 @@
     .menu-items a { width: 75px; font-size: 0.45rem; }
     .section-title { font-size: 1.3rem; }
 }
+/* --- 9. GALLERY & FORM --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.img-frame {
+    width: 100%;
+    height: 300px; 
+    overflow: hidden;
+    border: 1px solid #222;
+    border-radius: 4px;
+}
+
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.5s ease;
+}
+
+.img-frame:hover img {
+    transform: scale(1.05);
+}
+
+.contact-form { 
+    width: 100%; 
+    max-width: 500px; 
+    margin: 0 auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input, form textarea {
+    width: 100%; 
+    padding: 15px; 
+    background: #111; 
+    border: 1px solid #333; 
+    color: white; 
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.oscar-btn {
+    width: 100%; 
+    padding: 18px; 
+    background: var(--gold); 
+    color: black;
+    border: none; 
+    font-weight: 900; 
+    cursor: pointer; 
+    text-transform: uppercase;
+}
+
+/* --- 10. MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+    .content-limit { width: 90%; }
+    .side-menu { top: 20px; right: 10px; }
+    .main-name { font-size: 1.8rem; white-space: normal; border-right: none; animation: none; } /* Disable typing on small mobile for better fit */
+    
+    .photo-box img {
+        width: 200px; 
+        height: 200px;
+    }
+
+    .menu-items a {
+        width: 75px;
+        font-size: 0.45rem;
+        padding: 5px 8px;
+    }
+   } 
