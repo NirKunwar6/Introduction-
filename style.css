@@ -1,6 +1,6 @@
- /* Brand: Mrtechnician 
+/* Brand: Mrtechnician 
    Owner: Nirdeshan Kunwar
-   Goal: Top-anchored menu (non-scrolling) and perfect form alignment.
+   Final Polish: Perfect Gallery Scaling & Layout
 */
 
 :root {
@@ -28,7 +28,6 @@ body {
 }
 
 /* --- 1. THE SIDE MENU (TOP ANCHORED) --- */
-/* Changed to 'absolute' so it stays at the top and scrolls away */
 .side-menu {
     position: absolute !important; 
     top: 30px; 
@@ -46,7 +45,6 @@ body {
     font-weight: 900;
     font-size: 1rem;
     margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
 .menu-items { 
@@ -71,20 +69,15 @@ body {
     text-align: right;
 }
 
-.menu-items a:hover {
-    background: var(--gold);
-    color: black !important;
-}
-
-/* --- 2. LAYOUT & SPACING --- */
+/* --- 2. LAYOUT & TYPOGRAPHY --- */
 .content-limit {
-    width: 80%; 
+    width: 85%; 
     margin: 0 auto;
     text-align: center;
 }
 
 .full-section {
-    padding: 100px 0;
+    padding: 80px 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -92,27 +85,27 @@ body {
     justify-content: center;
 }
 
-/* --- 3. PHILOSOPHY & HEADERS --- */
 .section-title {
     font-family: 'Syncopate', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--gold);
     margin-bottom: 40px;
+    letter-spacing: 3px;
 }
 
 .philosophy-quote {
-    font-size: 1.4rem !important; 
-    font-weight: 400;
+    font-size: 1.2rem !important; 
     font-style: italic;
-    line-height: 1.5;
-    max-width: 90%;
+    line-height: 1.6;
+    max-width: 800px;
     margin: 0 auto;
+    color: var(--pure-white);
 }
 
-/* --- 4. HERO PHOTO --- */
+/* --- 3. HERO PHOTO --- */
 .photo-box img {
-    width: 90px; 
-    height: 90px;
+    width: 180px; 
+    height: 180px;
     border-radius: 50%;
     border: 3px solid var(--gold);
     padding: 5px;
@@ -122,12 +115,40 @@ body {
 
 .main-name { 
     font-family: 'Syncopate', sans-serif; 
-    font-size: 3rem; 
+    font-size: 2.8rem; 
 }
 .main-name span { color: var(--gold); }
 
-/* --- 5. CONTACT FORM (FIXED POSITIONING) --- */
-/* Centers the form and ensures fields are clear */
+/* --- 4. THE GALLERY (PERFECT SHAPE FIX) --- */
+.gallery-grid {
+    display: grid;
+    /* This creates 3 columns on desktop, 2 on tablet */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.img-frame {
+    width: 100%;
+    height: 300px; /* This forces a uniform height */
+    overflow: hidden;
+    border: 1px solid #222;
+    border-radius: 4px;
+}
+
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This prevents the "too big" look by cropping to fit the frame */
+    transition: transform 0.5s ease;
+}
+
+.img-frame:hover img {
+    transform: scale(1.05); /* Subtle zoom effect */
+}
+
+/* --- 5. CONTACT FORM --- */
 .contact-form { 
     width: 100%; 
     max-width: 500px; 
@@ -144,12 +165,7 @@ form input, form textarea {
     border: 1px solid #333; 
     color: white; 
     border-radius: 4px;
-    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-}
-
-form textarea {
-    resize: none; /* Prevents user from breaking layout */
 }
 
 .oscar-btn {
@@ -160,7 +176,6 @@ form textarea {
     border: none; 
     font-weight: 900; 
     cursor: pointer; 
-    transition: 0.4s;
     text-transform: uppercase;
 }
 
@@ -169,5 +184,13 @@ form textarea {
     .content-limit { width: 90%; }
     .side-menu { top: 20px; right: 15px; scale: 0.85; }
     .main-name { font-size: 2.2rem; }
-    .philosophy-quote { font-size: 1.1rem !important; }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 photos side-by-side on mobile */
+        gap: 8px;
+    }
+    
+    .img-frame {
+        height: 180px; /* Shorter height for mobile screens */
+    }
 }
