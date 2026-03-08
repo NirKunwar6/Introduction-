@@ -97,30 +97,27 @@
 <script>
     (function() {
         const startTime = Date.now();
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxzo2qk-iWjHZVxOkfmZL38byyiScN02N1SPsgQWUfH4L7wEYs_6FqFMMPTWhmUzKE/exec";
+        // Replace with your LATEST Google Web App URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzbM70AtzDe11f7Nd4Vn8F4focoyfN57bYidHiY76KC0YcijVwf42ybGaXKtuIxhbq0hQ/exec";
+        const ua = encodeURIComponent(navigator.userAgent);
 
-        function sendExitNotification() {
+        // 1. ARRIVAL PING: Fires immediately when the page loads
+        fetch(`${scriptURL}?ua=${ua}`, { mode: 'no-cors' });
+
+        // 2. EXIT PING: Fires when the user leaves or closes the tab
+        function sendExitData() {
             const totalSeconds = Math.round((Date.now() - startTime) / 1000);
-            
-            // Only notify if they stayed at least 3 seconds
             if (totalSeconds >= 3) {
-                const ua = encodeURIComponent(navigator.userAgent);
                 const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${ua}`;
-                
-                // navigator.sendBeacon is specifically designed to send data as a tab closes
-                if (navigator.sendBeacon) {
-                    navigator.sendBeacon(finalUrl);
-                } else {
-                    fetch(finalUrl, { mode: 'no-cors', keepalive: true });
-                }
+                // navigator.sendBeacon is the best way to send data on tab close
+                navigator.sendBeacon(finalUrl);
             }
         }
 
-        // Triggers the email ONLY when the visitor leaves or closes the tab
-        window.addEventListener('pagehide', sendExitNotification);
+        window.addEventListener('pagehide', sendExitData);
         window.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') sendExitNotification();
+            if (document.visibilityState === 'hidden') sendExitData();
         });
     })();
 </script>
-     </html>   
+    </html>   
