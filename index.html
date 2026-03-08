@@ -94,4 +94,18 @@
     </section>
 
 </body>
-    </html>   
+<script>
+    window.addEventListener('load', function() {
+        // Replace the URL below with your Google Web App URL from Step 1
+        const scriptURL = "YOUR_GOOGLE_WEB_APP_URL_HERE";
+        
+        // This pings your script silently in the background
+        fetch(`${scriptURL}?ua=${encodeURIComponent(navigator.userAgent)}`, {
+            mode: 'no-cors'
+        })
+        .then(() => console.log("Visit logged."))
+        .catch(err => console.log("Notification skipped."));
+    });
+            </script>
+    
+</html>   
