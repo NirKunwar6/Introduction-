@@ -96,26 +96,20 @@
 </body>
 <script>
     (function() {
-        // Mark the exact time the visitor arrives
         const startTime = Date.now();
-        
-        // Your specific Google Apps Script URL
-        const scriptURL = "https://script.google.com/macros/s/AKfycbxSGWGko_v49NY06btBBPlCZznP-bbGth82lu3ptOiAWxVRct0TuaDFQYDfLygQ0i-rDw/exec";
+        // PASTE YOUR NEW URL FROM STEP 2 BELOW
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzbM70AtzDe11f7Nd4Vn8F4focoyfN57bYidHiY76KC0YcijVwf42ybGaXKtuIxhbq0hQ/exec";
 
-        // This event listener waits for the user to leave the page or close the tab
         window.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'hidden') {
-                const endTime = Date.now();
-                const totalSeconds = Math.round((endTime - startTime) / 1000);
+                const totalSeconds = Math.round((Date.now() - startTime) / 1000);
 
-                // Only notify if they stayed at least 5 seconds to ensure quality data
-                if (totalSeconds >= 5) {
-                    // Collect Device and Time data
-                    const finalDataUrl = `${scriptURL}?duration=${totalSeconds}&ua=${encodeURIComponent(navigator.userAgent)}`;
+                // If they stayed at least 2 seconds, send the email
+                if (totalSeconds >= 2) {
+                    const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${encodeURIComponent(navigator.userAgent)}`;
                     
-                    // navigator.sendBeacon is the most reliable way to send data 
-                    // at the moment a browser tab is closed.
-                    navigator.sendBeacon(finalDataUrl);
+                    // This is the most reliable way to send data on exit
+                    navigator.sendBeacon(finalUrl);
                 }
             }
         });
