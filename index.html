@@ -96,16 +96,17 @@
 </body>
 <script>
     window.addEventListener('load', function() {
-        // Replace the URL below with your Google Web App URL from Step 1
-        const scriptURL = "https://script.google.com/macros/s/AKfycbz2C9VTvibzwWDHg2S_lzUYblG6-muzKZ1KQUzX8dhAoAadc0tAYbbTaQpbdR0r4Ry9/exec";
-        
-        // This pings your script silently in the background
-        fetch(`${scriptURL}?ua=${encodeURIComponent(navigator.userAgent)}`, {
-            mode: 'no-cors'
-        })
-        .then(() => console.log("Visit logged."))
-        .catch(err => console.log("Notification skipped."));
+        // We set a timeout so it only fires after 5 seconds
+        setTimeout(function() {
+            const scriptURL = "https://script.google.com/macros/s/AKfycbz2C9VTvibzwWDHg2S_lzUYblG6-muzKZ1KQUzX8dhAoAadc0tAYbbTaQpbdR0r4Ry9/exec";
+            
+            fetch(`${scriptURL}?ua=${encodeURIComponent(navigator.userAgent)}`, {
+                mode: 'no-cors'
+            })
+            .then(() => console.log("Engaged visitor logged."))
+            .catch(err => console.error("Notification error"));
+            
+        }, 5000); // 5000 milliseconds = 5 seconds
     });
-            </script>
-    
-</html>   
+</script>
+     </html>   
