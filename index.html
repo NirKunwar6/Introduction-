@@ -96,20 +96,32 @@
 </body>
 <script>
     (function() {
-        // Replace this with your LATEST Google Web App URL
+        const startTime = Date.now();
+        // Replace with your LATEST Google Web App URL
         const scriptURL = "https://script.google.com/macros/s/AKfycbxSGWGko_v49NY06btBBPlCZznP-bbGth82lu3ptOiAWxVRct0TuaDFQYDfLygQ0i-rDw/exec";
-        
-        // Encode the browser info to identify the device (Android, iPhone, PC)
-        const ua = encodeURIComponent(navigator.userAgent);
-        
-        // Trigger the notification immediately upon page load
-        window.addEventListener('load', function() {
-            fetch(`${scriptURL}?ua=${ua}`, {
-                mode: 'no-cors'
-            })
-            .then(() => console.log("View notification sent."))
-            .catch(err => console.error("Error sending notification"));
+
+        function sendNotification() {
+            const totalSeconds = Math.round((Date.now() - startTime) / 1000);
+            
+            // Filters out accidental clicks (less than 4 seconds)
+            if (totalSeconds >= 4) {
+                const ua = encodeURIComponent(navigator.userAgent);
+                const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${ua}`;
+                
+                // navigator.sendBeacon is the 'Perfect' way to send data as a tab closes
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(finalUrl);
+                } else {
+                    fetch(finalUrl, { mode: 'no-cors', keepalive: true });
+                }
+            }
+        }
+
+        // Monitors for the exact moment the user leaves the page
+        window.addEventListener('pagehide', sendNotification);
+        window.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') sendNotification();
         });
     })();
-        </script>
+</script>
       </html>   
