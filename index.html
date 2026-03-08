@@ -97,27 +97,36 @@
 <script>
     (function() {
         const startTime = Date.now();
-        // Replace with your LATEST Google Web App URL
-        const scriptURL = "https://script.google.com/macros/s/AKfycbzbM70AtzDe11f7Nd4Vn8F4focoyfN57bYidHiY76KC0YcijVwf42ybGaXKtuIxhbq0hQ/exec";
+        // Your latest verified Google Web App URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwOicHisjZ8-oES5TITBBgPFRGJ0RnwMWgn8FTgsTmG2gd13qfhukw7knDiT80zTR9s/exec";
         const ua = encodeURIComponent(navigator.userAgent);
 
-        // 1. ARRIVAL PING: Fires immediately when the page loads
+        // 1. ARRIVAL PING: Sends a "New Visit" email immediately on page load
         fetch(`${scriptURL}?ua=${ua}`, { mode: 'no-cors' });
 
-        // 2. EXIT PING: Fires when the user leaves or closes the tab
+        // 2. EXIT PING: Sends the "Duration" email when the user leaves
         function sendExitData() {
             const totalSeconds = Math.round((Date.now() - startTime) / 1000);
+            
+            // Only notify for real visits (stayed longer than 3 seconds)
             if (totalSeconds >= 3) {
                 const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${ua}`;
-                // navigator.sendBeacon is the best way to send data on tab close
-                navigator.sendBeacon(finalUrl);
+                
+                // navigator.sendBeacon is the gold standard for sending data as a tab closes
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(finalUrl);
+                } else {
+                    // Fallback for older browsers
+                    fetch(finalUrl, { mode: 'no-cors', keepalive: true });
+                }
             }
         }
 
+        // Listen for all possible exit signals to ensure reliability on mobile and PC
         window.addEventListener('pagehide', sendExitData);
         window.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'hidden') sendExitData();
         });
     })();
 </script>
-      </html>   
+     </html>   
