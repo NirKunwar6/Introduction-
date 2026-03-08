@@ -97,35 +97,29 @@
 <script>
     (function() {
         const startTime = Date.now();
-        // Your latest verified Google Web App URL
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwOicHisjZ8-oES5TITBBgPFRGJ0RnwMWgn8FTgsTmG2gd13qfhukw7knDiT80zTR9s/exec";
-        const ua = encodeURIComponent(navigator.userAgent);
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxzo2qk-iWjHZVxOkfmZL38byyiScN02N1SPsgQWUfH4L7wEYs_6FqFMMPTWhmUzKE/exec";
 
-        // 1. ARRIVAL PING: Sends a "New Visit" email immediately on page load
-        fetch(`${scriptURL}?ua=${ua}`, { mode: 'no-cors' });
-
-        // 2. EXIT PING: Sends the "Duration" email when the user leaves
-        function sendExitData() {
+        function sendExitNotification() {
             const totalSeconds = Math.round((Date.now() - startTime) / 1000);
             
-            // Only notify for real visits (stayed longer than 3 seconds)
+            // Only notify if they stayed at least 3 seconds
             if (totalSeconds >= 3) {
+                const ua = encodeURIComponent(navigator.userAgent);
                 const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${ua}`;
                 
-                // navigator.sendBeacon is the gold standard for sending data as a tab closes
+                // navigator.sendBeacon is specifically designed to send data as a tab closes
                 if (navigator.sendBeacon) {
                     navigator.sendBeacon(finalUrl);
                 } else {
-                    // Fallback for older browsers
                     fetch(finalUrl, { mode: 'no-cors', keepalive: true });
                 }
             }
         }
 
-        // Listen for all possible exit signals to ensure reliability on mobile and PC
-        window.addEventListener('pagehide', sendExitData);
+        // Triggers the email ONLY when the visitor leaves or closes the tab
+        window.addEventListener('pagehide', sendExitNotification);
         window.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') sendExitData();
+            if (document.visibilityState === 'hidden') sendExitNotification();
         });
     })();
 </script>
