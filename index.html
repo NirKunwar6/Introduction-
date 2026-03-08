@@ -95,18 +95,26 @@
 
 </body>
 <script>
-    window.addEventListener('load', function() {
-        // We set a timeout so it only fires after 5 seconds
-        setTimeout(function() {
-            const scriptURL = "https://script.google.com/macros/s/AKfycbz2C9VTvibzwWDHg2S_lzUYblG6-muzKZ1KQUzX8dhAoAadc0tAYbbTaQpbdR0r4Ry9/exec";
-            
-            fetch(`${scriptURL}?ua=${encodeURIComponent(navigator.userAgent)}`, {
-                mode: 'no-cors'
-            })
-            .then(() => console.log("Engaged visitor logged."))
-            .catch(err => console.error("Notification error"));
-            
-        }, 5000); // 5000 milliseconds = 5 seconds
-    });
+   <script>
+    (function() {
+        const startTime = Date.now();
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxeHDcqgBlWXDqRkmXV4bh2FUe7EgilaPL3eP481BzMdivqk1WOzSlVoFtql38ynlOJ7g/exec";
+
+        // This triggers when the user closes the tab or navigates away
+        window.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                const endTime = Date.now();
+                const timeSpentSeconds = Math.round((endTime - startTime) / 1000);
+
+                // We only notify you if they stayed at least 5 seconds
+                if (timeSpentSeconds >= 5) {
+                    const finalURL = `${scriptURL}?duration=${timeSpentSeconds}&ua=${encodeURIComponent(navigator.userAgent)}`;
+                    
+                    // Use sendBeacon for more reliable delivery on tab close
+                    navigator.sendBeacon(finalURL);
+                }
+            }
+        });
+    })();
 </script>
-     </html>   
+       </html>   
