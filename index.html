@@ -96,34 +96,20 @@
 </body>
 <script>
     (function() {
-        const startTime = Date.now();
-        // Replace with your LATEST Deployment URL from Step 2
-        const scriptURL = "https://script.google.com/macros/s/AKfycbw5IHjnWC6D_DLuNBXyKbKbZDhTRr9jNN4fjwUxwW4QDxX2hNg28nLZQxX_r9Na3c8i/exec";
-
-        function sendFinalPing() {
-            const totalSeconds = Math.round((Date.now() - startTime) / 1000);
-            
-            // Only notify for real visits (longer than 4 seconds)
-            if (totalSeconds >= 4) {
-                const ua = encodeURIComponent(navigator.userAgent);
-                const finalUrl = `${scriptURL}?duration=${totalSeconds}&ua=${ua}`;
-                
-                // navigator.sendBeacon is the gold standard for 'exit' data
-                if (navigator.sendBeacon) {
-                    navigator.sendBeacon(finalUrl);
-                } else {
-                    // Fallback for very old browsers
-                    fetch(finalUrl, { mode: 'no-cors', keepalive: true });
-                }
-            }
-        }
-
-        // Catching the exit on all possible browsers/devices
-        window.addEventListener('pagehide', sendFinalPing);
-        window.addEventListener('beforeunload', sendFinalPing);
-        window.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') sendFinalPing();
+        // Replace this with your LATEST Google Web App URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxSGWGko_v49NY06btBBPlCZznP-bbGth82lu3ptOiAWxVRct0TuaDFQYDfLygQ0i-rDw/exec";
+        
+        // Encode the browser info to identify the device (Android, iPhone, PC)
+        const ua = encodeURIComponent(navigator.userAgent);
+        
+        // Trigger the notification immediately upon page load
+        window.addEventListener('load', function() {
+            fetch(`${scriptURL}?ua=${ua}`, {
+                mode: 'no-cors'
+            })
+            .then(() => console.log("View notification sent."))
+            .catch(err => console.error("Error sending notification"));
         });
     })();
-</script>
+        </script>
       </html>   
