@@ -27,30 +27,42 @@ body {
     overflow-x: hidden;
 }
 
-/* ULTRA-STATIONARY VERTICAL MENU 
-   Brand: Mrtechnician
-   Logic: Fixed Viewport Anchor
+/* Mrtechnician Sidebar Fix 
+   Logic: This locks the navigation to the VIEWPORT, not the page content.
 */
 
 .side-menu {
-    position: fixed !important;       /* Absolute lock to the screen */
-    top: 40px !important;             /* Stay 40px from the top edge */
-    right: 25px !important;           /* Stay 25px from the right edge */
-    z-index: 99999 !important;        /* Force stay above all photos/content */
+    position: fixed !important;    /* Absolute lock to the screen */
+    top: 40px !important;          /* 40px from the top of the glass */
+    right: 25px !important;        /* 25px from the right edge */
+    width: auto !important;        /* Let it shrink to fit content */
+    height: auto !important;
+    z-index: 99999 !important;     /* Stay above all photos and sections */
     
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-end !important;
-    gap: 10px !important;
-    pointer-events: auto !important;
+    gap: 15px !important;
+    
+    /* Ensure nothing in the background blocks clicks */
+    pointer-events: auto !important; 
+}
+
+/* The "ABOUT" text at the top of the menu */
+.side-logo {
+    color: var(--text-gray);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-weight: 300;
 }
 
 .menu-items {
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    align-items: flex-end !important;
 }
 
 .menu-items a {
@@ -61,37 +73,32 @@ body {
     text-transform: uppercase !important;
     display: block !important;
     
-    /* Corrected Visuals */
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(8px);
+    /* Visual Design */
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
     padding: 12px 18px;
     border-right: 3px solid var(--gold);
     
-    /* Size & Alignment */
     width: 110px;
     text-align: right;
-    white-space: nowrap;
     transition: all 0.3s ease;
 }
 
-/* HOVER EFFECT */
 .menu-items a:hover {
     background: var(--gold);
-    color: #000000 !important;
-    width: 125px; /* Slight expansion on hover */
-    padding-right: 25px;
+    color: #000 !important;
+    width: 125px;
 }
 
-/* MOBILE LOCK - Keeps it usable on small screens */
+/* MOBILE FIX */
 @media (max-width: 768px) {
     .side-menu {
         top: 20px !important;
         right: 15px !important;
     }
     .menu-items a {
-        width: 90px;
+        width: 95px;
         font-size: 0.55rem;
-        padding: 8px 12px;
     }
 }
 
