@@ -33,39 +33,42 @@ body {
 */
 
 .side-menu {
-    /* LOCKING MECHANISM */
-    position: fixed !important;  /* Locks to the screen window, not the page */
-    top: 40px !important;        /* Exact distance from the top of the screen */
-    right: 25px !important;      /* Exact distance from the right of the screen */
+    position: fixed !important;       /* Locks sidebar to viewport */
+    top: 40px !important;             /* Distance from top of viewport */
+    right: 25px !important;           /* Distance from right of viewport */
+    z-index: 10000 !important;        /* Always on top */
     
-    /* PREVENT MOVEMENT */
-    z-index: 10000 !important;   /* Stays above everything (photo, text, etc.) */
-    pointer-events: auto;        /* Ensures buttons remain clickable */
-    
-    /* FORCED VERTICAL ALIGNMENT */
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-end;
-    gap: 8px;
+    align-items: flex-end !important;
+    gap: 8px !important;
+
+    pointer-events: auto !important;  /* Buttons stay clickable */
     
-    /* PREVENT TRANSFORM DRIFT */
-    transform: none !important;  
+    margin: 0 !important;             /* Prevent inherited margins */
+    padding: 0 !important;            /* Prevent inherited padding */
+    transform: none !important;       /* Prevent any transform drift */
 }
 
 .menu-items {
     display: flex !important;
-    flex-direction: column !important; /* Keep buttons stacked vertically */
-    gap: 5px;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .menu-items a {
     color: #ffffff !important;
-    text-decoration: none;
-    font-size: 0.55rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    
-    /* Visuals */
+    text-decoration: none !important;
+    font-size: 0.55rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    display: block !important;        /* Ensures proper spacing */
+}
+
+
+/* Visuals */
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     padding: 10px 15px;
