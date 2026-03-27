@@ -29,31 +29,26 @@ body {
 
 /* ULTRA-STATIONARY VERTICAL MENU 
    Brand: Mrtechnician
-   Logic: Total Viewport Anchor
+   Logic: Fixed Viewport Anchor
 */
 
 .side-menu {
-    position: fixed !important;       /* Locks sidebar to viewport */
-    top: 40px !important;             /* Distance from top of viewport */
-    right: 25px !important;           /* Distance from right of viewport */
-    z-index: 10000 !important;        /* Always on top */
+    position: fixed !important;       /* Absolute lock to the screen */
+    top: 40px !important;             /* Stay 40px from the top edge */
+    right: 25px !important;           /* Stay 25px from the right edge */
+    z-index: 99999 !important;        /* Force stay above all photos/content */
     
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-end !important;
-    gap: 8px !important;
-
-    pointer-events: auto !important;  /* Buttons stay clickable */
-    
-    margin: 0 !important;             /* Prevent inherited margins */
-    padding: 0 !important;            /* Prevent inherited padding */
-    transform: none !important;       /* Prevent any transform drift */
+    gap: 10px !important;
+    pointer-events: auto !important;
 }
 
 .menu-items {
     display: flex !important;
     flex-direction: column !important;
-    gap: 5px !important;
+    gap: 8px !important;
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -61,44 +56,42 @@ body {
 .menu-items a {
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 0.55rem !important;
+    font-size: 0.65rem !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    display: block !important;        /* Ensures proper spacing */
-}
-
-
-/* Visuals */
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-right: 3px solid #D4AF37;
+    display: block !important;
     
-    /* Size Control */
-    width: 100px;
+    /* Corrected Visuals */
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 12px 18px;
+    border-right: 3px solid var(--gold);
+    
+    /* Size & Alignment */
+    width: 110px;
     text-align: right;
     white-space: nowrap;
-    
-    /* Animation */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
 }
 
-/* HOVER UPGRADE */
+/* HOVER EFFECT */
 .menu-items a:hover {
-    background: #D4AF37;
+    background: var(--gold);
     color: #000000 !important;
-    width: 115px;
+    width: 125px; /* Slight expansion on hover */
+    padding-right: 25px;
 }
 
-/* MOBILE LOCK */
+/* MOBILE LOCK - Keeps it usable on small screens */
 @media (max-width: 768px) {
     .side-menu {
         top: 20px !important;
         right: 15px !important;
     }
     .menu-items a {
-        width: 85px;
-        font-size: 0.5rem;
+        width: 90px;
+        font-size: 0.55rem;
+        padding: 8px 12px;
     }
 }
 
