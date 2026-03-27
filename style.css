@@ -1,104 +1,103 @@
-     /* Brand: Mrtechnician 
+/* Brand: Mrtechnician 
    Owner: Nirdeshan Kunwar
    Updates: Slimmer Navigation & Typing Animation
 */
-
 :root {
-    --gold: #D4AF37;
-    --bg-black: #050505;
-    --pure-white: #ffffff;
-    --text-gray: #cccccc;
+--gold: #D4AF37;
+--bg-black: #050505;
+--pure-white: #ffffff;
+--text-gray: #cccccc;
 }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
-html { 
-    scroll-behavior: smooth; 
+
+html {
+scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--bg-black);
-    color: var(--pure-white);
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
+background-color: var(--bg-black);
+color: var(--pure-white);
+font-family: 'Poppins', sans-serif;
+overflow-x: hidden;
 }
 
-/* Mrtechnician Sidebar Fix 
-   Logic: This locks the navigation to the VIEWPORT, not the page content.
+/* ULTRA-STATIONARY VERTICAL MENU
+Brand: Mrtechnician
+Logic: Total Viewport Anchor
 */
 
 .side-menu {
-    position: fixed !important;    /* Absolute lock to the screen */
-    top: 40px !important;          /* 40px from the top of the glass */
-    right: 25px !important;        /* 25px from the right edge */
-    width: auto !important;        /* Let it shrink to fit content */
-    height: auto !important;
-    z-index: 99999 !important;     /* Stay above all photos and sections */
-    
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-end !important;
-    gap: 15px !important;
-    
-    /* Ensure nothing in the background blocks clicks */
-    pointer-events: auto !important; 
-}
+/* LOCKING MECHANISM /
+position: fixed !important;  / Locks to the screen window, not the page /
+top: 40px !important;        / Exact distance from the top of the screen /
+right: 25px !important;      / Exact distance from the right of the screen */
 
-/* The "ABOUT" text at the top of the menu */
-.side-logo {
-    color: var(--text-gray);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 5px;
-    font-weight: 300;
+/* PREVENT MOVEMENT */  
+z-index: 10000 !important;   /* Stays above everything (photo, text, etc.) */  
+pointer-events: auto;        /* Ensures buttons remain clickable */  
+  
+/* FORCED VERTICAL ALIGNMENT */  
+display: flex !important;  
+flex-direction: column !important;  
+align-items: flex-end;  
+gap: 8px;  
+  
+/* PREVENT TRANSFORM DRIFT */  
+transform: none !important;
+
 }
 
 .menu-items {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    align-items: flex-end !important;
+display: flex !important;
+flex-direction: column !important; /* Keep buttons stacked vertically */
+gap: 5px;
 }
 
 .menu-items a {
-    color: #ffffff !important;
-    text-decoration: none !important;
-    font-size: 0.65rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    display: block !important;
-    
-    /* Visual Design */
-    background: rgba(10, 10, 10, 0.8);
+color: #ffffff !important;
+text-decoration: none;
+font-size: 0.55rem;
+font-weight: 700;
+text-transform: uppercase;
+
+
+/* Visuals */
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
-    padding: 12px 18px;
-    border-right: 3px solid var(--gold);
+    padding: 10px 15px;
+    border-right: 3px solid #D4AF37;
     
-    width: 110px;
+    /* Size Control */
+    width: 100px;
     text-align: right;
-    transition: all 0.3s ease;
+    white-space: nowrap;
+    
+    /* Animation */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* HOVER UPGRADE */
 .menu-items a:hover {
-    background: var(--gold);
-    color: #000 !important;
-    width: 125px;
+    background: #D4AF37;
+    color: #000000 !important;
+    width: 115px;
 }
 
-/* MOBILE FIX */
+/* MOBILE LOCK */
 @media (max-width: 768px) {
     .side-menu {
         top: 20px !important;
         right: 15px !important;
     }
     .menu-items a {
-        width: 95px;
-        font-size: 0.55rem;
+        width: 85px;
+        font-size: 0.5rem;
     }
 }
 
@@ -276,4 +275,6 @@ form input, form textarea {
         font-size: 0.45rem;
         padding: 5px 8px;
     }
-}   
+     }
+
+
