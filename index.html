@@ -427,17 +427,11 @@ window.addEventListener("load", () => {
         .then(() => console.log("Visit alert sent!"))
         .catch((err) => console.log("Alert failed", err));
 
- }; 
- 
- const chatBox = document.getElementById("chatBox");
-
-// ✅ Greeting on page load (best UX)
-window.addEventListener("load", () => {
-    chatBox.innerHTML += `
-        <div class="bot">
-            Hello there! I am Nir's Personal assistant. How may I help you?
-        </div>
-    `;
+    // 2. Show the greeting message in the chat UI
+    const chatBox = document.getElementById("chatBox");
+    if (chatBox) {
+        chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's personal assistant. How may I help you?</div>`;
+    }
 });
  
   async function sendMessage() {
