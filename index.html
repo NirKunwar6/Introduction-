@@ -9,34 +9,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* ===== PERSONAL ASSISTANT SECTION UNIQUE BACKGROUND ===== */
+/* ===== PERSONAL AI ASSISTANT OUTER BOX ===== */
 #assistant {
-    background: linear-gradient(135deg, #0f0f0f, #17130a, #0f0f0f);
-    padding: 100px 40px;
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
 }
 
-/* Chat UI */
+#assistant .content-limit {
+    width: 100%;
+    max-width: 850px;
+    background: linear-gradient(135deg, #161616, #1f1b12, #161616);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+/* title */
+#assistant .section-title {
+    color: #D4AF37;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* inner message area */
 .chat-box {
-    height: 300px;
+    height: 320px;
     overflow-y: auto;
-    background: #111;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-.user {
-    text-align: right;
-    color: #fff;
-    margin: 5px;
-}
-
-.bot {
-    text-align: left;
-    color: gold;
-    margin: 5px;
+    background: #101010;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 15px;
 }
 </style>
+    
 </head>
 <body>
 
@@ -113,18 +121,18 @@
         </div>
     </section>
 
- <section id="assistant">
+<section id="assistant" class="full-section">
     <div class="content-limit">
         <h2 class="section-title">PERSONAL AI ASSISTANT</h2>
 
         <div class="chat-box" id="chatBox"></div>
 
-        <div style="display:flex; align-items:center;">
-            <input type="text" id="userInput" class="chat-input" placeholder="Ask anything about Nir...">
-            <button class="chat-btn" onclick="sendMessage()">Send</button>
-        </div>
+        <input type="text" id="userInput" class="chat-input" placeholder="Ask anything about Nir...">
+        <button class="chat-btn" onclick="sendMessage()">Send</button>
     </div>
- </section>
+</section>
+    
+    
 <script src="https://js.puter.com/v2/"></script>
 <script>
 const NIR_BRAIN = `
