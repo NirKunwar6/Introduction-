@@ -209,27 +209,33 @@ section:not(#assistant) .section-title::after {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-// 1. Initialize EmailJS with your Public Key
+
+ // 1. Initialize EmailJS
 (function() {
     emailjs.init("aNDohUpb1KOb8hHnb");
 })();
 
-const NIR_BRAIN = `You are the official executive AI assistant of Nirdeshan "Nir" Kunwar...`; // Your full system prompt
+const NIR_BRAIN = `You are the official executive AI assistant of Nirdeshan "Nir" Kunwar...`; // Keep your full prompt here
 
 const chatBox = document.getElementById("chatBox");
 
-// 2. Visit Notification on Page Load
+// 2. Automated Visit Notification (Sends as soon as page is opened)
 window.addEventListener("load", () => {
     chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
     
-    // Sends a simple notification that someone opened the site
-    emailjs.send("service_vl56w0b", "template_0o5x712", {
-        user_msg: "SYSTEM: New Visitor",
-        ai_msg: "Website opened successfully."
-    });
+    const visitParams = {
+        message: "New visitor has opened your portfolio.",
+        reply: "N/A (Visit Notification)",
+        name: "System Alert", // Fills the {{name}} field in your template
+        email: "portfolio-bot@mrtechnician.com" // Fills the {{email}} field
+    };
+
+    emailjs.send("service_vl56w0b", "template_0o5x712", visitParams)
+        .then(() => console.log("Visit alert sent!"))
+        .catch((err) => console.log("Visit alert failed", err));
 });
 
-// 3. Main Chat & Email Logging Function
+// 3. Chat and Email Function
 async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value.trim();
@@ -240,13 +246,12 @@ async function sendMessage() {
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Show "Typing" indicator
     const typingId = "typing-" + Date.now();
     chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // Get AI Response from Puter
+        // Get Response from Puter AI
         const resp = await puter.ai.chat([
             { role: "system", content: NIR_BRAIN },
             { role: "user", content: userText }
@@ -260,23 +265,29 @@ async function sendMessage() {
         chatBox.innerHTML += `<div class="bot">${aiReply}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // ✅ SEND LOG TO EMAIL (Using simplified keys)
+        // ✅ MATCHING YOUR DASHBOARD LABELS
         const emailParams = {
-            user_msg: userText,  // Matches {{user_msg}} in your template
-            ai_msg: aiReply      // Matches {{ai_msg}} in your template
+            message: userText,  // Matches {{message}}
+            reply: aiReply,     // Matches {{reply}}
+            name: "Portfolio Visitor", // Matches {{name}}
+            email: "visitor@portfolio.com" // Matches {{email}}
         };
 
         emailjs.send("service_vl56w0b", "template_0o5x712", emailParams)
-            .then(() => console.log("Email Log Sent!"))
-            .catch((err) => console.log("Email Failed:", err));
+            .then(() => console.log("Chat log sent to nirkunwar6@gmail.com"))
+            .catch((err) => console.error("Email failed to send:", err));
 
     } catch (e) {
-        console.error("Chat Error:", e);
+        console.error("AI Error:", e);
     }
 }
 
 // Event Listeners
-document.getElementById("userInput").addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+document.getElementById("userInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+});
+
+// Using your existing onclick function or adding listener
 document.querySelector(".chat-btn").addEventListener("click", sendMessage);
 </script>
 </body>
