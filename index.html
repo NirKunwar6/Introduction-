@@ -413,6 +413,22 @@ Rules:
 - Never over-explain unless user specifically asks for detail`; // Keep your full prompt
 
 
+// --- AUTO VISIT NOTIFICATION ---
+window.addEventListener("load", () => {
+    // 1. Send the email notification
+    const visitParams = {
+        user_message: "SYSTEM ALERT",
+        ai_response: "A visitor has just opened your portfolio link.",
+        name: "Visitor Alert",
+        email: "system@mrtechnician.com"
+    };
+
+    emailjs.send("service_vl56w0b", "template_0o5x712", visitParams)
+        .then(() => console.log("Visit alert sent!"))
+        .catch((err) => console.log("Alert failed", err));
+
+ }; 
+ 
  const chatBox = document.getElementById("chatBox");
 
 // ✅ Greeting on page load (best UX)
