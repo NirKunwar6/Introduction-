@@ -217,6 +217,9 @@ section:not(#assistant) .section-title::after {
         
 <script src="https://js.puter.com/v2/"></script>
 <script>
+ <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script src="https://js.puter.com/v2/"></script>
+ <script>
 const NIR_BRAIN = `
 You are the official executive AI assistant of Nirdeshan "Nir" Kunwar.
 
@@ -416,80 +419,60 @@ Rules:
 - Never over-explain unless user specifically asks for detail
 `;
 
-   <!-- Assistant section -->
-<section id="assistant">
-    <div class="content-limit">
-        <h2 class="section-title">NIR'S PERSONAL ASSISTANT</h2>
-        <div class="chat-box" id="chatBox"></div>
-        <div style="display:flex; align-items:center;">
-            <input type="text" id="userInput" class="chat-input" placeholder="Talk to Nir's Assistant...">
-            <button class="chat-btn" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-</section>
-
-<!-- Scripts at the bottom -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
-<script src="https://js.puter.com/v2/"></script>
 
 <script>
-  // Your full JS code here
-  const chatBox = document.getElementById("chatBox");
+const chatBox = document.getElementById("chatBox");
+emailjs.init("aNDohUpb1KOb8hHnb"); // Your public key
 
-  emailjs.init("aNDohUpb1KOb8hHnb"); // Your public key
+const NIR_BRAIN = ` ... full brain content ... `; // close properly with backticks
 
-  function sendEmailNotification(userMessage, aiResponse) {
-emailjs.send('service_vl56w0b', 'template_0o5x712', {
-user_message: userMessage,      // matches {{user_message}}
-ai_response: aiResponse,        // matches {{ai_response}}
-time: new Date().toLocaleString() // matches {{time}}
-})
-.then(() => console.log("Email sent successfully"))
-.catch(err => console.error("Email send error:", err));
+function sendEmailNotification(userMessage, aiResponse) {
+  emailjs.send('service_vl56w0b', 'template_0o5x712', {
+    user_message: userMessage,
+    ai_response: aiResponse,
+    time: new Date().toLocaleString()
+  })
+  .then(() => console.log("Email sent successfully"))
+  .catch(err => console.error("Email send error:", err));
 }
 
-async function sendMessage() {  
-const input = document.getElementById("userInput");  
-const userText = input.value.trim();  
-if (!userText) return;  
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const userText = input.value.trim();
+  if (!userText) return;
 
-chatBox.innerHTML += `<div class="user">${userText}</div>`;  
-input.value = "";  
-chatBox.scrollTop = chatBox.scrollHeight;  
+  chatBox.innerHTML += `<div class="user">${userText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+  input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-const typingId = "typing-" + Date.now();  
-chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;  
-chatBox.scrollTop = chatBox.scrollHeight;  
+  const typingId = "typing-" + Date.now();
+  chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-try {  
-    const resp = await puter.ai.chat([  
-        { role: "system", content: NIR_BRAIN },  
-        { role: "user", content: userText }  
-    ]);  
+  try {
+    const resp = await puter.ai.chat([
+      { role: "system", content: NIR_BRAIN },
+      { role: "user", content: userText }
+    ]);
 
-    document.getElementById(typingId).remove();  
+    document.getElementById(typingId).remove();
+    chatBox.innerHTML += `<div class="bot">${resp.message.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-    chatBox.innerHTML += `<div class="bot">${resp.message.content}</div>`;  
-    chatBox.scrollTop = chatBox.scrollHeight;  
+    sendEmailNotification(userText, resp.message.content);
+  } catch (e) {
+    const typingMsg = document.getElementById(typingId);
+    if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
+    console.error(e);
+  }
+}
 
-    // ✅ Send email with user input + AI response  
-    sendEmailNotification(userText, resp.message.content);  
-
-} catch (e) {  
-    const typingMsg = document.getElementById(typingId);  
-    if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";  
-    console.error(e);  
-}  
-}  
-
-window.addEventListener("load", () => {  
-chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;  
-// Send email with placeholder messages for first visit  
-sendEmailNotification("Visitor opened portfolio", "Visitor just arrived", "System Message");
-
+window.addEventListener("load", () => {
+  chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
+  sendEmailNotification("Visitor opened portfolio", "Visitor just arrived");
 });
 </script>
-</body>
+ </body>
 </html>
  
  
