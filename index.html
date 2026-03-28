@@ -7,14 +7,6 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("aNDohUpb1KOb8hHnb"); // Replace with your EmailJS public key
-    })();
-</script>
-
  <style>
 /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
@@ -424,67 +416,79 @@ Rules:
 - Never over-explain unless user specifically asks for detail
 `;
 
-// Chat box
-const chatBox = document.getElementById("chatBox");
+   <!-- Assistant section -->
+<section id="assistant">
+    <div class="content-limit">
+        <h2 class="section-title">NIR'S PERSONAL ASSISTANT</h2>
+        <div class="chat-box" id="chatBox"></div>
+        <div style="display:flex; align-items:center;">
+            <input type="text" id="userInput" class="chat-input" placeholder="Talk to Nir's Assistant...">
+            <button class="chat-btn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</section>
 
-// Function to send EmailJS notification
-function sendEmailNotification(subject, message) {
-    emailjs.send('service_vl56w0b', 'template_0o5x712', {
-        user_message: userText,
-    ai_response: resp.message.content,
-    time: new Date().toLocaleString()
-    });
+<!-- Scripts at the bottom -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script src="https://js.puter.com/v2/"></script>
+
+<script>
+  // Your full JS code here
+  const chatBox = document.getElementById("chatBox");
+
+  emailjs.init("aNDohUpb1KOb8hHnb"); // Your public key
+
+  function sendEmailNotification(userMessage, aiResponse) {
+emailjs.send('service_vl56w0b', 'template_0o5x712', {
+user_message: userMessage,      // matches {{user_message}}
+ai_response: aiResponse,        // matches {{ai_response}}
+time: new Date().toLocaleString() // matches {{time}}
+})
+.then(() => console.log("Email sent successfully"))
+.catch(err => console.error("Email send error:", err));
 }
 
-// Notify new visitor immediately
-window.addEventListener("load", () => {
-    chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
-    sendEmailNotification("New Visit", "A new visitor has opened your portfolio.");
+async function sendMessage() {  
+const input = document.getElementById("userInput");  
+const userText = input.value.trim();  
+if (!userText) return;  
+
+chatBox.innerHTML += `<div class="user">${userText}</div>`;  
+input.value = "";  
+chatBox.scrollTop = chatBox.scrollHeight;  
+
+const typingId = "typing-" + Date.now();  
+chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;  
+chatBox.scrollTop = chatBox.scrollHeight;  
+
+try {  
+    const resp = await puter.ai.chat([  
+        { role: "system", content: NIR_BRAIN },  
+        { role: "user", content: userText }  
+    ]);  
+
+    document.getElementById(typingId).remove();  
+
+    chatBox.innerHTML += `<div class="bot">${resp.message.content}</div>`;  
+    chatBox.scrollTop = chatBox.scrollHeight;  
+
+    // ✅ Send email with user input + AI response  
+    sendEmailNotification(userText, resp.message.content);  
+
+} catch (e) {  
+    const typingMsg = document.getElementById(typingId);  
+    if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";  
+    console.error(e);  
+}  
+}  
+
+window.addEventListener("load", () => {  
+chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;  
+// Send email with placeholder messages for first visit  
+sendEmailNotification("Visitor opened portfolio", "Visitor just arrived", "System Message");
+
 });
-
-// Send message function
-async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const userText = input.value.trim();
-    if (!userText) return;
-
-    chatBox.innerHTML += `<div class="user">${userText}</div>`;
-    input.value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    const typingId = "typing-" + Date.now();
-    chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    try {
-        const resp = await puter.ai.chat([
-            { role: "system", content: NIR_BRAIN },
-            { role: "user", content: userText }
-        ]);
-
-        const typingMsg = document.getElementById(typingId);
-        if (typingMsg) typingMsg.remove();
-
-        chatBox.innerHTML += `<div class="bot">${resp.message.content}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        // Send user input + AI response to email
-        sendEmailNotification(userText, resp.message.content);
-
-    } catch (e) {
-        const typingMsg = document.getElementById(typingId);
-        if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
-        console.error(e);
-    }
-}
-
-// Enter key sends message
-document.getElementById("userInput").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") sendMessage();
-});
-document.querySelector(".chat-btn").addEventListener("click", sendMessage);
 </script>
-
 </body>
 </html>
  
