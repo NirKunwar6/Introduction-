@@ -191,36 +191,17 @@ text-transform: uppercase;
 }
 
 
-/* --- ULTIMATE FORCE FIX FOR HERO PHOTO --- */
-#hero .content-limit {
-    max-width: 100% !important; /* Prevents the section from squeezing the photo */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.photo-box {
-    width: 350px !important;   /* Control the actual size here */
-    height: 350px !important;  /* Keep it a perfect square for the circle */
-    max-width: 90vw !important; /* Safety for mobile screens */
-    margin: 0 auto 30px !important;
-    display: block !important;
-    overflow: visible !important; /* Ensures the border/glow isn't cut off */
-}
-
+ 
+/* --- 4. HERO PHOTO --- */
 .photo-box img {
-    width: 100% !important;    /* Forces image to fill the 350px box */
-    height: 100% !important;
-    min-width: 100% !important;
-    border-radius: 50% !important;
-    border: 5px solid gold !important; 
-    padding: 10px !important;
-    object-fit: cover !important;
-    display: block !important;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.4) !important;
+    width: 320px;  
+    height: 320px; 
+    border-radius: 50%;
+    border: 4px solid var(--gold); 
+    padding: 6px;
+    margin-bottom: 25px;
+    object-fit: cover;
 }
-
 /* Fix for standard mobile screens */
 @media (max-width: 480px) {
     .photo-box {
