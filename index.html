@@ -8,42 +8,105 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-/* ===== PERSONAL AI ASSISTANT OUTER BOX ===== */
+
+ <style>
+/* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
-    padding: 100px 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
 }
 
 #assistant .content-limit {
     width: 100%;
-    max-width: 850px;
-    background: linear-gradient(135deg, #161616, #1f1b12, #161616);
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(212, 175, 55, 0.25);
-    border-radius: 22px;
+    border-radius: 24px;
     padding: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    backdrop-filter: blur(12px);
 }
 
 /* title */
 #assistant .section-title {
-    color: #D4AF37;
     text-align: center;
     margin-bottom: 20px;
+    color: #191a17;
+    font-size: 28px;
+    letter-spacing: 2px;
 }
 
-/* inner message area */
+/* chat box */
 .chat-box {
-    height: 320px;
+    height: 350px;
     overflow-y: auto;
-    background: #101010;
+    background:#085e59 ;
     border: 1px solid rgba(255,255,255,0.06);
-    padding: 15px;
-    border-radius: 16px;
-    margin-bottom: 15px;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
 }
-</style>
+
+/* user bubble */
+.user {
+    text-align: right;
+    color: white;
+    margin: 10px 0;
+    background: rgba(255,255,255,0.08);
+    padding: 12px 16px;
+    border-radius: 16px;
+    display: inline-block;
+    max-width: 75%;
+    float: right;
+    clear: both;
+}
+
+/* bot bubble */
+.bot {
+    text-align: left;
+    color: #a69e08;
+    margin: 10px 0;
+    background: rgba(212,175,55,0.08);
+    padding: 12px 16px;
+    border-radius: 16px;
+    display: inline-block;
+    max-width: 75%;
+    float: left;
+    clear: both;
+}
+
+/* input area */
+.chat-input {
+    width: 75%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: #111;
+    color: white;
+    outline: none;
+    font-size: 15px;
+}
+
+/* send button */
+.chat-btn {
+    padding: 14px 22px;
+    margin-left: 10px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #D4AF37, #b8962e);
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.chat-btn:hover {
+    transform: translateY(-2px);
+}
+ </style>   
     
 </head>
 <body>
@@ -56,7 +119,7 @@
             <a href="#achievements">Progression</a>
             <a href="#vision">Vision</a>
             <a href="#gallery">Gallery</a>
-            <a href="#contact">Message</a>
+            <a href="#contact">Talk to Nir</a>
         </div>
     </nav>
 
@@ -121,18 +184,19 @@
         </div>
     </section>
 
-<section id="assistant" class="full-section">
+<section id="assistant">
     <div class="content-limit">
-        <h2 class="section-title">PERSONAL AI ASSISTANT</h2>
+        <h2 class="section-title">NIR'S PERSONAL ASSISTANT</h2>
 
         <div class="chat-box" id="chatBox"></div>
 
-        <input type="text" id="userInput" class="chat-input" placeholder="Ask anything about Nir...">
-        <button class="chat-btn" onclick="sendMessage()">Send</button>
+        <div style="display:flex; align-items:center;">
+            <input type="text" id="userInput" class="chat-input" placeholder="Talk to Nir's Assistant...">
+            <button class="chat-btn" onclick="sendMessage()">Send</button>
+        </div>
     </div>
 </section>
-    
-    
+        
 <script src="https://js.puter.com/v2/"></script>
 <script>
 const NIR_BRAIN = `
