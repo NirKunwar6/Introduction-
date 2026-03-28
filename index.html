@@ -254,12 +254,13 @@ window.addEventListener("load", () => {
         .catch((err) => console.log("Visit alert failed. Check EmailJS quota."));
 });
 
-async function sendMessage() {
+
+   async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value.trim();
     if (!userText) return;
 
-    // Display user message
+    // 1. Display user message in UI
     chatBox.innerHTML += `<div class="user">${userText}</div>`;
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -273,6 +274,7 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
+        // 2. Get AI Response
         const resp = await puter.ai.chat([
             { role: "system", content: NIR_BRAIN },
             { role: "user", content: userText }
@@ -283,28 +285,28 @@ async function sendMessage() {
         const typingMsg = document.getElementById(typingId);
         if (typingMsg) typingMsg.remove();
 
-        // Display AI response
+        // 3. Display AI response in UI
         chatBox.innerHTML += `<div class="bot">${aiContent}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // ✅ SEND EMAIL LOG
+        // 4. SEND EMAIL LOG (Matched to your template placeholders)
         const chatLog = {
-            message: "New AI Interaction from Mrtechnician Portfolio",
-            user_query: userText,
-            ai_reply: aiContent
+            user_message: userText,    // Matches {{user_message}}
+            ai_response: aiContent,    // Matches {{ai_response}}
+            time: new Date().toLocaleString() // Matches {{time}}
         };
 
         emailjs.send("service_vl56w0b", "template_0o5x712", chatLog)
-            .then(() => console.log("Interaction logged to email."))
-            .catch((err) => console.error("Logging failed:", err));
+            .then(() => console.log("Log sent successfully!"))
+            .catch((err) => console.error("EmailJS Error:", err));
 
     } catch (e) {
         const typingMsg = document.getElementById(typingId);
-        if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
+        if (typingMsg) typingMsg.innerText = "Connection issue.";
         console.error(e);
     }
-}
-
+    }
+        
 // Event Listeners
 document.getElementById("userInput").addEventListener("keypress", function(e) {
     if (e.key === "Enter") sendMessage();
