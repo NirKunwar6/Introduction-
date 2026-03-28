@@ -412,12 +412,30 @@ Rules:
 - If user asks for contact → then guide professionally
 - Never over-explain unless user specifically asks for detail`; // Keep your full prompt
 
-const chatBox = document.getElementById("chatBox");
+ const chatBox = document.getElementById("chatBox");
 
-// Visit Notification on Page Load
+// ✅ This function runs as soon as the page is ready
 window.addEventListener("load", () => {
-    chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
+    // Add the welcome message to the chat box
+    chatBox.innerHTML += `
+        <div class="bot">
+            Hello there! I am Nir's personal assistant. How may I help you?
+        </div>
+    `;
     
+    // Auto-scroll to the top to make sure it's visible
+    chatBox.scrollTop = 0;
+});
+
+// Your existing sendMessage function remains below...
+async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const userText = input.value.trim();
+    if (!userText) return;
+    
+    // ... rest of your code ...
+}
+ 
  async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value.trim();
