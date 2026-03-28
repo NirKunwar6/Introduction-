@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
 /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
@@ -307,16 +307,20 @@ window.addEventListener("load", () => {
     }
     }
         
-// Event Listeners
-document.getElementById("userInput").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") sendMessage();
-});
+   // Send input and response to email
+    emailjs.send('service_vl56w0b', 'template_0o5x712', {
+      user_message: val,
+      ai_response: aiText,
+      to_email: 'nirkunwar6@gmail.com'
+    }).then(res=>console.log("Email sent"), err=>console.log(err));
 
-document.getElementById("sendBtn").addEventListener("click", sendMessage);
+  }catch(e){
+    document.getElementById(typingId).innerText="Connection lost. Please try again.";
+    console.error(e);
+  }
+}
 </script>
 </body>
 </html>
-
-
-
-
+    
+                
