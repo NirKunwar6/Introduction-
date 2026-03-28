@@ -7,6 +7,8 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
  <style>
 /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
@@ -217,9 +219,6 @@ section:not(#assistant) .section-title::after {
         
 <script src="https://js.puter.com/v2/"></script>
 <script>
- <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
-<script src="https://js.puter.com/v2/"></script>
- <script>
 const NIR_BRAIN = `
 You are the official executive AI assistant of Nirdeshan "Nir" Kunwar.
 
@@ -419,63 +418,63 @@ Rules:
 - Never over-explain unless user specifically asks for detail
 `;
 
-
-<script>
 const chatBox = document.getElementById("chatBox");
-emailjs.init("aNDohUpb1KOb8hHnb"); // Your public key
 
-const NIR_BRAIN = ` ... full brain content ... `; // close properly with backticks
-
-function sendEmailNotification(userMessage, aiResponse) {
-  emailjs.send('service_vl56w0b', 'template_0o5x712', {
-    user_message: userMessage,
-    ai_response: aiResponse,
-    time: new Date().toLocaleString()
-  })
-  .then(() => console.log("Email sent successfully"))
-  .catch(err => console.error("Email send error:", err));
-}
+// ✅ Greeting on page load (best UX)
+window.addEventListener("load", () => {
+    chatBox.innerHTML += `
+        <div class="bot">
+            Hello there! I am Nir's assistant. How may I help you?
+        </div>
+    `;
+});
 
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const userText = input.value.trim();
-  if (!userText) return;
+    const input = document.getElementById("userInput");
+    const userText = input.value.trim();
+    if (!userText) return;
 
-  chatBox.innerHTML += `<div class="user">${userText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-  input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  const typingId = "typing-" + Date.now();
-  chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
-
-  try {
-    const resp = await puter.ai.chat([
-      { role: "system", content: NIR_BRAIN },
-      { role: "user", content: userText }
-    ]);
-
-    document.getElementById(typingId).remove();
-    chatBox.innerHTML += `<div class="bot">${resp.message.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+    chatBox.innerHTML += `<div class="user">${userText}</div>`;
+    input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    sendEmailNotification(userText, resp.message.content);
-  } catch (e) {
-    const typingMsg = document.getElementById(typingId);
-    if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
-    console.error(e);
-  }
+    const typingId = "typing-" + Date.now();
+    chatBox.innerHTML += `
+        <div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">
+            Typing...
+        </div>
+    `;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const resp = await puter.ai.chat([
+            { role: "system", content: NIR_BRAIN },
+            { role: "user", content: userText }
+        ]);
+
+        const typingMsg = document.getElementById(typingId);
+        if (typingMsg) typingMsg.remove();
+
+        chatBox.innerHTML += `<div class="bot">${resp.message.content}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+    } catch (e) {
+        const typingMsg = document.getElementById(typingId);
+        if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
+        console.error(e);
+    }
 }
 
-window.addEventListener("load", () => {
-  chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
-  sendEmailNotification("Visitor opened portfolio", "Visitor just arrived");
+document.getElementById("userInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") sendMessage();
 });
-</script>
- </body>
-</html>
- 
- 
- 
- 
- 
+
+document.querySelector(".chat-btn").addEventListener("click", sendMessage);
+  </script>
+</body>
+ </html>
+
+
+
+
+    
