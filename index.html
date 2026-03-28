@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
 <script>
     (function(){
-        emailjs.init("xwz3UbQ9UqSPUP3GB"); // Replace with your EmailJS public key
+        emailjs.init("aNDohUpb1KOb8hHnb"); // Replace with your EmailJS public key
     })();
 </script>
 
@@ -429,9 +429,10 @@ const chatBox = document.getElementById("chatBox");
 
 // Function to send EmailJS notification
 function sendEmailNotification(subject, message) {
-    emailjs.send('service_3d9vazm', 'template_4tlavgq', {
-        user_message: message,
-        ai_response: subject
+    emailjs.send('service_vl56w0b', 'template_0o5x712', {
+        user_message: userText,
+    ai_response: resp.message.content,
+    time: new Date().toLocaleString()
     });
 }
 
