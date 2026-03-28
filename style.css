@@ -192,8 +192,8 @@ text-transform: uppercase;
 
 /* --- 4. HERO PHOTO --- */
 .photo-box img {
-    width: 300px;  
-    height: 300px; 
+    width: 500px;  
+    height: 500px; 
     border-radius: 50%;
     border: 4px solid var(--gold); 
     padding: 6px;
