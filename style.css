@@ -195,7 +195,7 @@ text-transform: uppercase;
 .photo-box {
     width: 320px;           
     height: 320px;          
-    margin: 0 auto 50px;    /* 50px at the bottom (Increased from 25px or 30px) */
+    margin: 0 auto 40px;    
     display: block;         
 }
 
