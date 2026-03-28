@@ -7,8 +7,8 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<style>
+
+ <style>
 /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
     display: flex;
@@ -28,7 +28,6 @@
     backdrop-filter: blur(12px);
 }
 
-/* title */
 #assistant .section-title {
     text-align: center;
     margin-bottom: 20px;
@@ -37,7 +36,6 @@
     letter-spacing: 2px;
 }
 
-/* chat box */
 .chat-box {
     height: 350px;
     overflow-y: auto;
@@ -49,7 +47,6 @@
     box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
 }
 
-/* user bubble */
 .user {
     text-align: right;
     color: white;
@@ -63,7 +60,6 @@
     clear: both;
 }
 
-/* bot bubble */
 .bot {
     text-align: left;
     color: #a69e08;
@@ -77,7 +73,6 @@
     clear: both;
 }
 
-/* input area */
 .chat-input {
     width: 75%;
     padding: 14px 18px;
@@ -89,7 +84,6 @@
     font-size: 15px;
 }
 
-/* send button */
 .chat-btn {
     padding: 14px 22px;
     margin-left: 10px;
@@ -106,12 +100,10 @@
     transform: translateY(-2px);
 }
 
- 
- /* Section Titles Underline - Excluding Personal AI Assistant */
 section:not(#assistant) .section-title {
     position: relative;
-    display: inline-block; /* fit the underline to text width */
-    padding-bottom: 5px;   /* space between text and underline */
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 section:not(#assistant) .section-title::after {
@@ -120,9 +112,9 @@ section:not(#assistant) .section-title::after {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 3px;            /* thickness of the underline */
-    background-color: gold;  /* underline color */
-    border-radius: 2px;      /* rounded edges */
+    height: 3px;
+    background-color: gold;
+    border-radius: 2px;
 }
  </style>   
     
@@ -151,7 +143,6 @@ section:not(#assistant) .section-title::after {
         </div>
     </header>
 
- 
  <section id="journey" class="full-section">
         <div class="content-limit">
             <h2 class="section-title">JOURNEY (BIO)</h2>
@@ -198,7 +189,6 @@ section:not(#assistant) .section-title::after {
                 <div class="img-frame"><img src="IMG_20260107_122423_899.webp"></div>
                 <div class="img-frame"><img src="IMG_20260307_175246.jpg"></div>
                 <div class="img-frame"><img src="1766114093638.jpg"></div>
-
           </div>
         </div>
     </section>
@@ -206,9 +196,7 @@ section:not(#assistant) .section-title::after {
 <section id="assistant">
     <div class="content-limit">
         <h2 class="section-title">NIR'S PERSONAL ASSISTANT</h2>
-
         <div class="chat-box" id="chatBox"></div>
-
         <div style="display:flex; align-items:center;">
             <input type="text" id="userInput" class="chat-input" placeholder="Talk to Nir's Assistant...">
             <button class="chat-btn" id="sendBtn">Send</button>
@@ -220,107 +208,79 @@ section:not(#assistant) .section-title::after {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-// Initialize EmailJS
+// 1. Initialize EmailJS
 (function() {
     emailjs.init("aNDohUpb1KOb8hHnb");
 })();
 
-const NIR_BRAIN = `
-You are the official executive AI assistant of Nirdeshan "Nir" Kunwar.
-Your purpose is to professionally represent Nir like a real human executive assistant...
-(Rest of your custom brain prompt remains active here)
-`;
+const NIR_BRAIN = `You are the official executive AI assistant of Nirdeshan "Nir" Kunwar... (Include your full system prompt here)`;
 
 const chatBox = document.getElementById("chatBox");
 
-// ✅ Greeting & Visit Notification on page load
+// ✅ Visit Notification & Bot Greeting
 window.addEventListener("load", () => {
-    // Show bot greeting
-    chatBox.innerHTML += `
-        <div class="bot">
-            Hello there! I am Nir's assistant. How may I help you?
-        </div>
-    `;
+    chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
 
-    // Send "New Visit" Email
-    const visitData = {
-        message: "New visit to Nirdeshan Kunwar's Portfolio",
-        user_query: "N/A - Page Loaded",
-        ai_reply: "Auto-notification sent on load."
+    const visitParams = {
+        "User Message": "PAGE LOAD",
+        "AI Response": "New visit detected on portfolio link.",
+        
     };
-
-    emailjs.send("service_vl56w0b", "template_0o5x712", visitData)
-        .then(() => console.log("Visit alert sent."))
-        .catch((err) => console.log("Visit alert failed. Check EmailJS quota."));
+    emailjs.send("service_vl56w0b", "template_0o5x712", visitParams);
 });
 
-
-   async function sendMessage() {
+async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value.trim();
     if (!userText) return;
 
-    // 1. Display user message in UI
     chatBox.innerHTML += `<div class="user">${userText}</div>`;
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
     const typingId = "typing-" + Date.now();
-    chatBox.innerHTML += `
-        <div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">
-            Typing...
-        </div>
-    `;
+    chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // 2. Get AI Response
         const resp = await puter.ai.chat([
             { role: "system", content: NIR_BRAIN },
             { role: "user", content: userText }
         ]);
 
-        const aiContent = resp.message.content;
-
+        const aiReply = resp.message.content;
         const typingMsg = document.getElementById(typingId);
         if (typingMsg) typingMsg.remove();
 
-        // 3. Display AI response in UI
-        chatBox.innerHTML += `<div class="bot">${aiContent}</div>`;
+        chatBox.innerHTML += `<div class="bot">${aiReply}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // 4. SEND EMAIL LOG (Matched to your template placeholders)
-        const chatLog = {
-            user_message: userText,    // Matches {{user_message}}
-            ai_response: aiContent,    // Matches {{ai_response}}
-            time: new Date().toLocaleString() // Matches {{time}}
+        // ✅ FIXED EMAIL SENDING LOGIC
+        const emailParams = {
+            "User Message": userText,    // Matches {{User Message}} exactly
+            "AI Response": aiReply,     // Matches {{AI Response}} exactly
+            
         };
 
-        emailjs.send("service_vl56w0b", "template_0o5x712", chatLog)
-            .then(() => console.log("Log sent successfully!"))
-            .catch((err) => console.error("EmailJS Error:", err));
+        emailjs.send("service_vl56w0b", "template_0o5x712", emailParams)
+            .then(() => console.log("Email sent!"))
+            .catch((err) => console.error("Email failed:", err));
 
     } catch (e) {
-        const typingMsg = document.getElementById(typingId);
-        if (typingMsg) typingMsg.innerText = "Connection issue.";
         console.error(e);
     }
-    }
-        
-   // Send input and response to email
-    emailjs.send('service_vl56w0b', 'template_0o5x712', {
-      user_message: val,
-      ai_response: aiText,
-      to_email: 'nirkunwar6@gmail.com'
-    }).then(res=>console.log("Email sent"), err=>console.log(err));
-
-  }catch(e){
-    document.getElementById(typingId).innerText="Connection lost. Please try again.";
-    console.error(e);
-  }
 }
+
+document.getElementById("userInput").addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
 </script>
 </body>
-</html>
+    </html>
     
-                
+
+
+
+
+
+
+    
