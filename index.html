@@ -7,7 +7,13 @@
 
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("xwz3UbQ9UqSPUP3GB"); // Replace with your EmailJS public key
+    })();
+</script>
 
  <style>
 /* ===== PREMIUM AI ASSISTANT BOX ===== */
@@ -418,17 +424,24 @@ Rules:
 - Never over-explain unless user specifically asks for detail
 `;
 
+// Chat box
 const chatBox = document.getElementById("chatBox");
 
-// ✅ Greeting on page load (best UX)
+// Function to send EmailJS notification
+function sendEmailNotification(subject, message) {
+    emailjs.send('service_3d9vazm', 'template_4tlavgq', {
+        user_message: message,
+        ai_response: subject
+    });
+}
+
+// Notify new visitor immediately
 window.addEventListener("load", () => {
-    chatBox.innerHTML += `
-        <div class="bot">
-            Hello there! I am Nir's assistant. How may I help you?
-        </div>
-    `;
+    chatBox.innerHTML += `<div class="bot">Hello there! I am Nir's assistant. How may I help you?</div>`;
+    sendEmailNotification("New Visit", "A new visitor has opened your portfolio.");
 });
 
+// Send message function
 async function sendMessage() {
     const input = document.getElementById("userInput");
     const userText = input.value.trim();
@@ -439,11 +452,7 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     const typingId = "typing-" + Date.now();
-    chatBox.innerHTML += `
-        <div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">
-            Typing...
-        </div>
-    `;
+    chatBox.innerHTML += `<div class="bot" id="${typingId}" style="opacity:.7;font-style:italic;">Typing...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
@@ -458,6 +467,9 @@ async function sendMessage() {
         chatBox.innerHTML += `<div class="bot">${resp.message.content}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
+        // Send user input + AI response to email
+        sendEmailNotification(userText, resp.message.content);
+
     } catch (e) {
         const typingMsg = document.getElementById(typingId);
         if (typingMsg) typingMsg.innerText = "Connection issue. Please try again.";
@@ -465,18 +477,17 @@ async function sendMessage() {
     }
 }
 
+// Enter key sends message
 document.getElementById("userInput").addEventListener("keypress", function(e) {
     if (e.key === "Enter") sendMessage();
 });
-
 document.querySelector(".chat-btn").addEventListener("click", sendMessage);
-  </script>
+</script>
+
 </body>
 </html>
-            
-    
-          
-
-
-    
-    
+ 
+ 
+ 
+ 
+ 
