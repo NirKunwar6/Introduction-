@@ -191,35 +191,16 @@ text-transform: uppercase;
 }
 
 
- /* --- 4. HERO PHOTO (CENTERED & SPACED) --- */
-.photo-box {
-    width: 320px;           
-    height: 320px;          
-    margin: 0 auto 30px;    
-    display: block;         
-}
-
+ 
+/* --- 4. HERO PHOTO --- */
 .photo-box img {
-    width: 100%;            
-    height: 100%;
+    width: 280px;  
+    height: 280px; 
     border-radius: 50%;
     border: 4px solid var(--gold); 
     padding: 6px;
+    margin-bottom: 25px;
     object-fit: cover;
-    display: block;         
-}
-
-/* Optional: Add space specifically to the top of the name as well */
-.main-name {
-    margin-top: 20px;      /* Pushes the name down further from the photo */
-}
-
-/* Fix for standard mobile screens */
-@media (max-width: 480px) {
-    .photo-box {
-        width: 250px !important; 
-        height: 250px !important;
-    }
 }
 
 /* --- 5. GALLERY & FORM --- */
