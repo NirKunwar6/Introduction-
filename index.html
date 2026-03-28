@@ -470,8 +470,42 @@ document.getElementById("userInput").addEventListener("keypress", function(e) {
 });
 
 document.querySelector(".chat-btn").addEventListener("click", sendMessage);
-</script>
-    </body>
+
+// Send to EmailJS
+            emailjs.send('service_3d9vazm', 'template_4tlavgq', {
+                user_message: userText,
+                ai_response: aiText
+            });
+
+        } catch (e) {
+            const typingMsg = document.getElementById(typingId);
+            if (typingMsg) typingMsg.innerText = "Connection lost. Please try again.";
+            console.error(e);
+        }
+    }
+
+    // Enter key triggers send
+    document.getElementById("userInput").addEventListener("keypress", function(e){
+        if(e.key === "Enter") sendMessage();
+    });
+
+    // Send button triggers send
+    document.querySelector(".chat-btn").addEventListener("click", sendMessage);
+
+ // Capture and encode the device information
+        const ua = encodeURIComponent(navigator.userAgent);
+        
+        // Trigger the notification as soon as the window finishes loading
+        window.addEventListener('load', function() {
+            fetch(`${scriptURL}?ua=${ua}`, {
+                mode: 'no-cors'
+            })
+            .then(() => console.log("View notification sent successfully."))
+            .catch(err => console.error("Error sending notification:", err));
+        });
+    })();
+            </script>
+</body>
 </html>
             
     
