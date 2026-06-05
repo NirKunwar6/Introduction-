@@ -10,7 +10,103 @@
 
  <style>
 
- 
+/* FLOAT BUTTON */
+.pa-float-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #D4AF37, #111);
+    color: white;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* POPUP BOX */
+.pa-chat-popup {
+    position: fixed;
+    right: 20px;
+    bottom: 160px;
+    width: 320px;
+    height: 420px;
+    background: #0f0f0f;
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 18px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10000;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+/* HEADER */
+.pa-header {
+    background: linear-gradient(135deg, #D4AF37, #111);
+    color: black;
+    padding: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CLOSE BUTTON */
+#closeChat {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* BODY */
+.pa-body {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    color: white;
+}
+
+/* BOT MESSAGE */
+.bot-msg {
+    background: rgba(212,175,55,0.15);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    color: #f5d76e;
+}
+
+/* FOOTER */
+.pa-footer {
+    display: flex;
+    padding: 10px;
+    background: #111;
+}
+
+.pa-footer input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #1e1e1e;
+    color: white;
+}
+
+.pa-footer button {
+    margin-left: 8px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #D4AF37;
+    cursor: pointer;
+ }
+
+  
   .gallery-container{
     width:100%;
     overflow:hidden;
@@ -93,9 +189,29 @@
     
 </head>
 <body>
-<!-- Floating PA Chat Bot Button -->
-<div class="pa-float-btn" id="paFloatBtn">
-    🤖
+<!-- Floating Button -->
+<div class="pa-float-btn" id="paFloatBtn">🤖</div>
+
+<!-- CHAT POPUP BOX -->
+<div class="pa-chat-popup" id="paChatPopup">
+    
+    <div class="pa-header">
+        🤖 PA - Nir Personal Assistant
+        <span id="closeChat">✖</span>
+    </div>
+
+    <div class="pa-body" id="paBody">
+        <div class="bot-msg">
+            👋 Hello! I am Nir’s Personal Assistant.<br>
+            I am here to assist you.
+        </div>
+    </div>
+
+    <div class="pa-footer">
+        <input type="text" id="paInput" placeholder="Type here...">
+        <button id="paSend">Send</button>
+    </div>
+
 </div>
   
  <nav class="side-menu">
@@ -191,17 +307,6 @@
     </div>
  </section>
 
-<section id="assistant">
-    <div class="content-limit">
-        <h2 class="section-title">NIR'S PERSONAL ASSISTANT</h2>
-        <div class="chat-box" id="chatBox"></div>
-        <div style="display:flex; align-items:center;">
-            <input type="text" id="userInput" class="chat-input" placeholder="Talk to Nir's Assistant...">
-            <button class="chat-btn" id="sendBtn">Send</button>
-        </div>
-    </div>
-</section>
-        
 
  <script src="https://js.puter.com/v2/"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
