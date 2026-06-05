@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         popup.style.display = "none";
     });
 
-    // SEND MESSAGE
+    // CHAT SEND
     sendBtn.addEventListener("click", function () {
 
         let input = document.getElementById("paInput");
@@ -66,4 +66,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-       
+
