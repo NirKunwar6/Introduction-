@@ -10,13 +10,17 @@
 
  <style>
 
-  .gallery-grid {
+  .gallery-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery-grid {
     display: flex;
     gap: 20px;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100%;
-    animation: galleryScroll 25s linear infinite;
+    width: max-content;
+    animation: scrollGallery 30s linear infinite;
 }
 
 .img-frame {
@@ -25,19 +29,22 @@
 
 .img-frame img {
     width: 250px;
-    height: 180px;
+    height: 320px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 15px;
+    display: block;
 }
 
-@keyframes galleryScroll {
+@keyframes scrollGallery {
     from {
-        transform: translateX(100%);
+        transform: translateX(0);
     }
     to {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
+  
+  
  /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
     display: flex;
