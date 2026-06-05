@@ -9,7 +9,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
  <style>
-/* ===== PREMIUM AI ASSISTANT BOX ===== */
+
+  .gallery-grid {
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    animation: galleryScroll 25s linear infinite;
+}
+
+.img-frame {
+    flex: 0 0 auto;
+}
+
+.img-frame img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@keyframes galleryScroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+ /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
     display: flex;
     justify-content: center;
@@ -180,10 +209,12 @@ section:not(#assistant) .section-title::after {
         </div>
     </section>
 
-    <section id="gallery" class="full-section">
+   
+ 
+ <section id="gallery" class="full-section">
         <div class="content-limit">
             <h2 class="section-title">VISUAL GALLERY</h2>
-            <div class="gallery-grid">
+           <div class="gallery-grid">
               <div class="img-frame"><img src="IMG_20260508_211815.jpg"></div>
                <div class="img-frame"><img src="IMG_20250715_154508.jpg"></div>
                 <div class="img-frame"><img src="IMG-20250520-WA0009.jpg"></div>
