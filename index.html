@@ -10,40 +10,40 @@
 
  <style>
 
-  .gallery-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
+ 
+  .gallery-container{
+    width:100%;
+    overflow:hidden;
 }
 
-.gallery-grid {
-    display: flex;
-    gap: 20px;
-    width: max-content;
-    animation: scrollGallery 30s linear infinite;
+.gallery-grid{
+    display:flex;
+    gap:15px;
+    animation:slide 40s linear infinite;
 }
 
-.img-frame {
-    flex: 0 0 auto;
+.img-frame{
+    flex-shrink:0;
 }
 
-.img-frame img {
-    width: 250px;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 15px;
-    display: block;
+.img-frame img{
+    width:180px;
+    height:240px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;
 }
 
-@keyframes scrollGallery {
-    from {
-        transform: translateX(0);
+@keyframes slide{
+    0%{
+        transform:translateX(0);
     }
-    to {
-        transform: translateX(-50%);
+    100%{
+        transform:translateX(calc(-195px * 9));
     }
 }
   
+
   
  /* ===== PREMIUM AI ASSISTANT BOX ===== */
 #assistant {
