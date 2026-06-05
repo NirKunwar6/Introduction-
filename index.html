@@ -591,7 +591,28 @@ document.getElementById("userInput").addEventListener("keypress", (e) => {
 });
 
 document.querySelector(".chat-btn").addEventListener("click", sendMessage);
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const btn = document.getElementById("paFloatBtn");
+    const popup = document.getElementById("paChatPopup");
+    const closeBtn = document.getElementById("closeChat");
+
+    // OPEN CHAT
+    btn.addEventListener("click", function () {
+        popup.style.display = "flex";
+    });
+
+    // CLOSE CHAT
+    closeBtn.addEventListener("click", function () {
+        popup.style.display = "none";
+    });
+
+});
+
 </script>
+
+
 </body>
     </html>
     
